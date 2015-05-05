@@ -1,3 +1,6 @@
+db.sqlite3
+jumpingbook/.idea/
+jumpingbook/db.sqlite3
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

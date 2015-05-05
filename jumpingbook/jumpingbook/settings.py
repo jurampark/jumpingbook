@@ -12,9 +12,29 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os.path import join, abspath, dirname
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+here = lambda *dirs: join(abspath(dirname(__file__)), *dirs)
+BASE_DIR = here("..")
+root = lambda *dirs: join(abspath(BASE_DIR), *dirs)
 
+# Configuring MEDIA_ROOT
+MEDIA_ROOT = root("media")
+
+# Configuring STATIC_ROOT
+STATIC_ROOT = root("collected_static")
+STATIC_URL = '/static/'
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # "../../static",
+    root("static"),
+)
+
+# # Configuring TEMPLATE_DIRS
+# TEMPLATE_DIRS = (
+#     root("templates"),
+# )
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -25,7 +45,7 @@ SECRET_KEY = 'b0)scf2iz42bff_%rqgg=#akxngo+r_6-odv!en=p6=t4=sth^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +57,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'feasible',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,7 +76,7 @@ ROOT_URLCONF = 'jumpingbook.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [root("templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,8 +116,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-STATIC_URL = '/static/'
+#
+# # Static files (CSS, JavaScript, Images)
+# # https://docs.djangoproject.com/en/1.8/howto/static-files/
+#
+# STATIC_URL = '/static/'
