@@ -20,4 +20,5 @@ import feasible
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^feasible/', include('feasible.urls', namespace='feasible')),
+    url(r'^supervisor/', include('supervisor.urls', namespace='supervisor')),
 ]

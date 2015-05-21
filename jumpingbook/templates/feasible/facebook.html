@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <title></title>
     <!-- Latest compiled and minified CSS -->
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
     <!-- Optional theme -->
@@ -32,6 +36,7 @@
     // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
         console.log('statusChangeCallback');
+        $('#btn-fb-logout').css('display', 'none');
         console.log(response);
         // The response object is returned with a status field that lets the
         // app know the current login status of the person.
@@ -58,6 +63,13 @@
     function checkLoginState() {
         FB.getLoginStatus(function (response) {
             statusChangeCallback(response);
+        });
+    }
+
+    function fbLogout() {
+        FB.logout(function (response) {
+            // Person is now logged out
+            location.reload();
         });
     }
 
@@ -88,6 +100,10 @@
 
     };
 
+    {#    $(function() {#}
+    {##}
+    {#    })();#}
+
     // Load the SDK asynchronously
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -96,34 +112,35 @@
         js.id = id;
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
+
     }(document, 'script', 'facebook-jssdk'));
 
     // Here we run a very simple test of the Graph API after login is
     // successful.  See statusChangeCallback() for when this call is made.
     function testAPI() {
         console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function (response) {
+        FB.api('/me?fields=name,gender,likes.limit(1000)', function (response) {
             console.log('Successful login for: ' + response.name + ' / gender: ' + response.gender);
             document.getElementById('status').innerHTML =
                     'Thanks for logging in, ' + response.name + ' / gender: ' + response.gender + '!';
+
+            var table_obj = $('table#table-book');
+
+            var tr;
+            for (var i in response.likes.data) {
+                var obj = response.likes.data[i];
+                if (obj.category == "Book") {
+                    tr = $('<tr/>');
+                    tr.append("<td>" + obj.category + "</td>");
+                    tr.append("<td>" + obj.name + "</td>");
+                    table_obj.append(tr);
+                }
+            }
         });
+        $('#btn-fb-logout').css('display', 'block');
     }
 </script>
 
-{##}
-{#    <!--#}
-{#  Below we include the Login Button social plugin. This button uses#}
-{#  the JavaScript SDK to present a graphical Login button that triggers#}
-{#  the FB.login() function when clicked.#}
-{#-->#}
-{##}
-{#    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">#}
-{#    </fb:login-button>#}
-{##}
-{#    <div id="status">#}
-{#    </div>#}
-
-{#    <a></a>#}
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -140,19 +157,32 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-                </fb:login-button>
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <div style="line-height:40px">
+                        <fb:login-button scope="public_profile,email,user_likes" onlogin="checkLoginState();">
+                        </fb:login-button>
+                    </div>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li id="status"></li>
-                <li><a href="#">로그아웃</a></li>
+                <li><a id="btn-fb-logout" href="#" onclick="fbLogout()">로그아웃</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
 </nav>
+
+<div class="container">
+    <table id="table-book" class="table table-striped">
+        <tr>
+            <th>category</th>
+            <th>name</th>
+        </tr>
+    </table>
+</div>
 
 
 </body>

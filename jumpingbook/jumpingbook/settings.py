@@ -58,6 +58,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'feasible',
+    'recommend',
+    'supervisor',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,10 @@
             padding-top: 70px;
         }
     </style>
+    <script>
+        var csrftoken = "{{ csrf_token }}";
+        var urlForScrap = "{% url 'supervisor:scrap_kyobo_book' %}";
+    </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,16 +44,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li> -->
-                <li><a id="rank-female" href="#">여성 쇼핑몰 순위</a></li>
-                <li><a id="rank-male" href="#">남성 쇼핑몰 순위</a></li>
+{#                <li><a id="rank-female" href="#">여성 쇼핑몰 순위</a></li>#}
+{#                <li><a id="rank-male" href="#">남성 쇼핑몰 순위</a></li>#}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">연령 선택<span
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">카테고리<span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">10대</a></li>
-                        <li><a href="#">20대</a></li>
-                        <li><a href="#">30대</a></li>
-                        <li><a href="#">40대</a></li>
+                        <li><a id="korea-novel" href="#">한국소설</a></li>
+                        <li><a id="youth-novel" href="#">청소년소설</a></li>
+{#                        <li><a href="#">30대</a></li>#}
+{#                        <li><a href="#">40대</a></li>#}
                         <!-- 								<li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
                         <li><a href="#">Something else here</a></li>
@@ -66,7 +71,7 @@
                     <button type="submit" class="btn btn-default">Submit</button>
             </form> -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">더욱 더 편리한 앱으로 보기</a></li>
+{#                <li><a href="#">더욱 더 편리한 앱으로 보기</a></li>#}
                 <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -85,7 +90,7 @@
 </nav>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="./facube.js"></script>
+<script src="{% static 'js/supervisor/scrap.js' %}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
