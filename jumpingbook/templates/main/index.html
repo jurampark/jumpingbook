@@ -1,189 +1,80 @@
-{#{% extends "feasible/base.html" %}#}
-
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <!-- Latest compiled and minified CSS -->
+  <head>
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <style>
+      .container {
+        height: 100%;
+      }
+      .login-container
+      {
+        text-align: center;
+      }
 
-        #fb-test-img {
-            width: 100px;
-        }
-
-        #fb-test-img-btn {
-            cursor: pointer;
-        }
-
+      .btn-login
+      {
+        margin : 10px;
+        width : 250px
+      }
     </style>
 
-</head>
-<body>
-<script>
-    // This is called with the results from from FB.getLoginStatus().
-    function statusChangeCallback(response) {
-        console.log('statusChangeCallback');
-        $('#btn-fb-logout').css('display', 'none');
-        console.log(response);
-        // The response object is returned with a status field that lets the
-        // app know the current login status of the person.
-        // Full docs on the response object can be found in the documentation
-        // for FB.getLoginStatus().
-        if (response.status === 'connected') {
-            {#                location.href = "http://www.naver.com";#}
-            testAPI();
-        } else if (response.status === 'not_authorized') {
-            // The person is logged into Facebook, but not your app.
-            document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
-        } else {
-            // The person is not logged into Facebook, so we're not sure if
-            // they are logged into this app or not.
-            document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
-        }
-    }
-
-    // This function is called when someone finishes with the Login
-    // Button.  See the onlogin handler attached to it in the sample
-    // code below.
-    function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
-        });
-    }
-
-    function fbLogout() {
-        FB.logout(function (response) {
-            // Person is now logged out
-            location.reload();
-        });
-    }
-
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '800129520069026',
-            cookie: true,  // enable cookies to allow the server to access
-                           // the session
-            xfbml: true,  // parse social plugins on this page
-            version: 'v2.2' // use version 2.2
-        });
-
-        // Now that we've initialized the JavaScript SDK, we call
-        // FB.getLoginStatus().  This function gets the state of the
-        // person visiting this page and can return one of three states to
-        // the callback you provide.  They can be:
-        //
-        // 1. Logged into your app ('connected')
-        // 2. Logged into Facebook, but not your app ('not_authorized')
-        // 3. Not logged into Facebook and can't tell if they are logged into
-        //    your app or not.
-        //
-        // These three cases are handled in the callback function.
-
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
-        });
-
-    };
-
-    {#    $(function() {#}
-    {##}
-    {#    })();#}
-
-    // Load the SDK asynchronously
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-
-    }(document, 'script', 'facebook-jssdk'));
-
-    // Here we run a very simple test of the Graph API after login is
-    // successful.  See statusChangeCallback() for when this call is made.
-    function testAPI() {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me?fields=name,gender,likes.limit(1000)', function (response) {
-            console.log('Successful login for: ' + response.name + ' / gender: ' + response.gender);
-            document.getElementById('status').innerHTML =
-                    'Thanks for logging in, ' + response.name + ' / gender: ' + response.gender + '!';
-
-            var table_obj = $('table#table-book');
-
-            var tr;
-            for (var i in response.likes.data) {
-                var obj = response.likes.data[i];
-                if (obj.category == "Book") {
-                    tr = $('<tr/>');
-                    tr.append("<td>" + obj.category + "</td>");
-                    tr.append("<td>" + obj.name + "</td>");
-                    table_obj.append(tr);
-                }
-            }
-        });
-        $('#btn-fb-logout').css('display', 'block');
-    }
-</script>
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">JumpingBook</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            Jumping Book
+          </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-left">
-                <li>
-                    <div style="line-height:40px">
-                        <fb:login-button scope="public_profile,email,user_likes" onlogin="checkLoginState();">
-                        </fb:login-button>
-                    </div>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li id="status"></li>
-                <li><a id="btn-fb-logout" href="#" onclick="fbLogout()">로그아웃</a></li>
-            </ul>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">추천 도서 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">평가 늘리기</a></li>
+          </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+      <div class="login-container">
+        <div>이미 회원이신가요?</div>
+
+        <div>
+          <button type="button" class="btn btn-primary btn-login">Facebook으로 로그인</button>
         </div>
-        <!-- /.navbar-collapse -->
+
+        <div>
+          <button type="button" class="btn btn-primary btn-login">Facebook으로 1초만에 가입하기</button>
+        </div>
+      </div>
     </div>
-    <!-- /.container-fluid -->
-</nav>
-
-<div class="container">
-    <table id="table-book" class="table table-striped">
-        <tr>
-            <th>category</th>
-            <th>name</th>
-        </tr>
-    </table>
-</div>
 
 
-</body>
+  </body>
 </html>
