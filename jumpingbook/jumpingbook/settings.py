@@ -59,6 +59,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
 
+    'django_extensions',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -159,6 +161,7 @@ USE_TZ = True
 
 SITE_ID = 1
 
+# LOGIN_URL = '/login'
 # Oauth
 SOCIALACCOUNT_PROVIDERS = \
     {'facebook':

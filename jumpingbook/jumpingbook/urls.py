@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^', include('main.urls', namespace='main')),
     url(r'^feasible/', include('feasible.urls', namespace='feasible')),
     url(r'^supervisor/', include('supervisor.urls', namespace='supervisor')),
+    url(r'^recommend/', include('recommend.urls', namespace='recommend')),
     url(r'^accounts/', include('allauth.urls')),
 ]

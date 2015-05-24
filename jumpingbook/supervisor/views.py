@@ -48,7 +48,6 @@ class ScrapKyoboBookView(View):
             'testkey': u'data from server'
         }
 
-
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     #     ids = request.POST.get('ids')
     #     ids = ids.split("@")
