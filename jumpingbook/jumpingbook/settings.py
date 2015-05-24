@@ -51,6 +51,14 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = (
+    # The Django sites framework is required
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,6 +68,7 @@ INSTALLED_APPS = (
     'feasible',
     'recommend',
     'supervisor',
+    'main',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,6 +82,13 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 ROOT_URLCONF = 'jumpingbook.urls'
 
 TEMPLATES = [
@@ -84,12 +100,24 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                # `allauth` specific context processors
+                'allauth.account.context_processors.account',
+                'allauth.socialaccount.context_processors.socialaccount',
+                'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    # Required by `allauth` template tags
+    'django.core.context_processors.request',
+    # `allauth` specific context processors
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
+)
 
 WSGI_APPLICATION = 'jumpingbook.wsgi.application'
 
@@ -99,8 +127,12 @@ WSGI_APPLICATION = 'jumpingbook.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'jumpingbook',
+        'USER': 'root',
+        'PASSWORD': 'parkjuram90',
+        'HOST': 'jumpingbookdbinstance.chxobddaq8ce.ap-northeast-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -123,3 +155,16 @@ USE_TZ = True
 # # https://docs.djangoproject.com/en/1.8/howto/static-files/
 #
 # STATIC_URL = '/static/'
+
+
+SITE_ID = 1
+
+# Oauth
+SOCIALACCOUNT_PROVIDERS = \
+    {'facebook':
+       {'SCOPE': ['email', 'public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'METHOD': 'oauth2',
+        # 'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.3'}}
