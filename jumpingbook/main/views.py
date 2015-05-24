@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 class LoginView(TemplateView):
     template_name = "main/login.html"
 
-class IndexView(LoginRequiredMixin, TemplateView):
+class IndexView(TemplateView):
     template_name = "main/index.html"
 
     #optional
