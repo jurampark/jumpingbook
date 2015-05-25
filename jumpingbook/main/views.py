@@ -16,3 +16,6 @@ class MyPageView(LoginRequiredMixin, TemplateView):
 
 class BookRatingView(LoginRequiredMixin, TemplateView):
     template_name = "main/book_rating.html"
+
+class BookRecommendedView(LoginRequiredMixin, TemplateView):
+    template_name = "main/book_recommended.html"
