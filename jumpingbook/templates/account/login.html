@@ -2,6 +2,8 @@
 {% load bootstrap3 %}
 {% load i18n %}
 {% load account %}
+{% load socialaccount %}
+{% load socialaccount %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,16 +48,10 @@
         </div>
     </div>
 
-    {% if socialaccount.providers  %}
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-            </div>
-        </div>
-    {% endif %}
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <button type="button" class="btn btn-primary btn-login">Facebook으로 로그인</button>
+            {% providers_media_js %}
+            <a href="{% provider_login_url "facebook" method="js_sdk" %}"><button type="button" class="btn btn-primary btn-login">Facebook으로 로그인</button></a>
         </div>
     </div>
     <div class="row">

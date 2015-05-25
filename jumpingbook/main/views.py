@@ -13,3 +13,6 @@ class IndexView(LoginRequiredMixin, TemplateView):
 
 class MyPageView(LoginRequiredMixin, TemplateView):
     template_name = "main/mypage.html"
+
+class BookRatingView(LoginRequiredMixin, TemplateView):
+    template_name = "main/book_rating.html"
