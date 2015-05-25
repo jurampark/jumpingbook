@@ -41,22 +41,18 @@ $( document ).ready(function() {
                 }
                 $('input.rating').rating();
                 $('input.rating').on('change', function () {
-                    // console.log( $(this).parent().parent().attr('item-id') );
-
                     var current_item = $(this).parent().parent();
-                    var ajax_param = {
-                      "item-id": $(this).parent().parent().attr('item-id'),
-                      "rating" : $(this).val()
-                    };
-
+                    var ajax_param =
                     $.ajax({
                         type: 'POST',
-                        url: urlForBookList,
-                        data: ajax_param,
+                        url: urlForBookRating,
+                        data: {
+                            "item-id": $(this).parent().parent().attr('item-id'),
+                            "rating" : $(this).val()
+                        },
                         success:function()
                         {
                           current_item.remove();
-                          // alert('Rating: ' + $(this).val());
                         },
                         error: function(xhr, type, exception) {
                             alert("ajax error response type2 "+type);

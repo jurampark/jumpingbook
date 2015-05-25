@@ -1,21 +1,29 @@
 import json
+from braces.views import CsrfExemptMixin, LoginRequiredMixin
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
+from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render
 from django.views.generic import View
-from recommend.models import Book
+from recommend.models import Book, UserBookRating
 
 
-class BookListView(View):
+class BookListView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
-        books = Book.objects.values("id", "name", "author", "publisher", "published_date")
+        already_rating_book_list = request.user.userbookrating_set.values_list('book_id', flat=True)
+        books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "name", "author", "publisher", "published_date")
 
-        books_json = json.dumps(list(books), cls=DjangoJSONEncoder)
+        return HttpResponse(json.dumps(list(books), cls=DjangoJSONEncoder), content_type="application/json")
 
-        # data = simplejson.dumps(books)
-        # data = serializers.serialize("xml", SomeModel.objects.all())
+class RatingBookView(CsrfExemptMixin, View):
 
-        # return HttpResponse(data, mimetype='application/json')
+    def post(self, request, *args, **kwargs):
+        item_id = request.POST.get('item-id')
+        rating = request.POST.get('rating')
 
-        return HttpResponse(books_json, content_type="application/json")
-        # return HttpResponse(json.dumps(response_data), content_type="application/json")
+        try:
+            user_book_rating = UserBookRating.objects.create(user=request.user,book=Book.objects.get(id=item_id),score=rating*2)
+        except Exception as e:
+            return HttpResponseBadRequest()
+
+        return HttpResponse(json.dumps({}, cls=DjangoJSONEncoder), content_type="application/json")

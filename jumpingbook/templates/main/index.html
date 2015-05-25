@@ -60,6 +60,7 @@
     <script>
         var csrftoken = "{{ csrf_token }}";
         var urlForBookList = "{% url 'recommend:book_list' %}";
+        var urlForBookRating = "{% url 'recommend:book_rating' %}";
     </script>
 
 </head>
@@ -94,8 +95,7 @@
             </form>
 
             <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="{% url 'account_logout' %}">Logout</a></button>
-
-            <p class="navbar-text navbar-right">Signed in as {{ request.user.username }}</p>
+            <button type="button" class="btn btn-default navbar-btn navbar-right">{{ request.user.username }}님의 페이지</button>
 
         </div>
         <!-- /.navbar-collapse -->

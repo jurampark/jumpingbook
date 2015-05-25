@@ -1,5 +1,8 @@
 import datetime
+from django.contrib.auth.models import User
 from django.db import models
+from core.models import TimeStampedModel
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -15,7 +18,10 @@ class Book(models.Model):
     publisher = models.CharField(max_length=100)
     published_date = models.DateField(default=datetime.date.today)
 
-# class UserPreference(models.Model):
+class UserBookRating(TimeStampedModel):
+    user = models.ForeignKey(User)
+    book = models.ForeignKey('recommend.Book')
+    score = models.IntegerField(default=5, null=False)
 #     User
 #     Book
 #     score
