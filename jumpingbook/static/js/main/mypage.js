@@ -18,7 +18,7 @@ $( document ).ready(function() {
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: urlForBookList,
+            url: urlForRatedBook,
             data: {},
             success: function(data){
                 $('input.rating').off();
@@ -36,25 +36,6 @@ $( document ).ready(function() {
                                     </div>";
                     $('.book-item-container').append( elem );
                 }
-                $('input.rating').rating();
-                $('input.rating').on('change', function () {
-                    var current_item = $(this).parent().parent();
-                    $.ajax({
-                        type: 'POST',
-                        url: urlForBookRating,
-                        data: {
-                            "item-id": $(this).parent().parent().attr('item-id'),
-                            "rating" : $(this).val()
-                        },
-                        success:function()
-                        {
-                          current_item.remove();
-                        },
-                        error: function(xhr, type, exception) {
-                            alert("ajax error response type2 "+type);
-                        }
-                    })
-                })
             },
             error: function(xhr, type, exception) {
                 alert("ajax error response type1 "+type);
