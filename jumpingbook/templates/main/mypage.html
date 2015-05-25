@@ -17,46 +17,6 @@
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-
-    <link rel="stylesheet" href="{% static 'css/main/star_rating.css' %}">
-    <style>
-        .container {
-            height: 100%;
-        }
-
-        .login-container {
-            text-align: center;
-        }
-
-        .btn-login {
-            margin: 10px;
-            width: 250px
-        }
-        .book-item {
-            width: 250px;
-            border: 1px solid white;
-            display:inline-block;
-            position: relative;
-            float: left;
-            margin: 5px;
-        }
-        .img-container {
-            width: 100%;
-            float: left;
-        }
-        .img-container img {
-            width: 100%;
-        }
-        .star-rating-container {
-            text-align: center;
-            width: 100%;
-            background-color: white;
-            position: absolute;
-            bottom: 0;
-{#            float: left;#}
-        }
-    </style>
-
     <script>
         var csrftoken = "{{ csrf_token }}";
         var urlForBookList = "{% url 'recommend:book_list' %}";
@@ -95,7 +55,7 @@
             </form>
 
             <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="{% url 'account_logout' %}">Logout</a></button>
-            <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="{% url 'main:mypage' %}">{{ request.user.username }}님의 페이지</a></button>
+            <button type="button" class="btn btn-default navbar-btn navbar-right">{{ request.user.username }}님의 페이지</button>
 
         </div>
         <!-- /.navbar-collapse -->
@@ -105,13 +65,9 @@
 
 <div class="container">
 
-    <div class="book-item-container"></div>
+    마이페이지
 
 </div>
-
-{#<script src="{% static 'js/supervisor/scrap.js' %}"></script>#}
-
-<script src="{% static 'js/main/index.js' %}"></script>
 
 </body>
 </html>

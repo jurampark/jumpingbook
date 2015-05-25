@@ -11,7 +11,5 @@ class LoginView(TemplateView):
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = "main/index.html"
 
-    #optional
-    # login_url = reverse_lazy("main:login")
-    # redirect_field_name = "next"
-    # raise_exception = True
+class MyPageView(LoginRequiredMixin, TemplateView):
+    template_name = "main/mypage.html"
