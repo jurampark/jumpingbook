@@ -28,14 +28,19 @@ $( document ).ready(function() {
                                         <div class=\"img-container\"> \
                                             <img src=\"http://youth.sangju.go.kr/fileUpload/contentsboard/book_00406.jpg\" /> \
                                         </div> \
-                                        <div class=\"star-rating-container\"> \
+                                        <div class=\"star-rating-container\" score=\""+ item['score'] +"\"> \
                                             <div class=\"item-title\">" + item['name'] + "</div> \
                                             <div class=\"item-author\">" + item['author'] + "</div> \
-                                            <input type=\"hidden\" class=\"rating\" data-fractions=\"2\"/> \
+                                            <input type=\"hidden\" class=\"rating\" readonly=\"readonly\" data-fractions=\"2\"/> \
                                         </div> \
                                     </div>";
                     $('.book-item-container').append( elem );
                 }
+                $('input.rating').each( function(index){
+                  var score = $(this).parent().attr('score');
+
+                  $(this).rating('rate', score/2);
+                })
             },
             error: function(xhr, type, exception) {
                 alert("ajax error response type1 "+type);
