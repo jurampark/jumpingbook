@@ -6,8 +6,7 @@
 
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
-    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
+
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -16,46 +15,6 @@
 
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-
-    <link rel="stylesheet" href="{% static 'css/main/star_rating.css' %}">
-    <style>
-        .container {
-            height: 100%;
-        }
-
-        .login-container {
-            text-align: center;
-        }
-
-        .btn-login {
-            margin: 10px;
-            width: 250px
-        }
-        .book-item {
-            width: 250px;
-            border: 1px solid white;
-            display:inline-block;
-            position: relative;
-            float: left;
-            margin: 5px;
-        }
-        .img-container {
-            width: 100%;
-            float: left;
-        }
-        .img-container img {
-            width: 100%;
-        }
-        .star-rating-container {
-            text-align: center;
-            width: 100%;
-            background-color: white;
-            position: absolute;
-            bottom: 0;
-{#            float: left;#}
-        }
-    </style>
 
     <script>
         var csrftoken = "{{ csrf_token }}";
@@ -86,7 +45,7 @@
             <ul class="nav navbar-nav">
               <!-- <li class="active"><a href="#">추천 도서 <span class="sr-only">(current)</span></a></li> -->
                 <li><a id="recommend" href="#">추천 도서</a></li>
-                <li><a href="{% url 'main:book_rating' %}">평가 늘리기</a></li>
+                <li><a href="{% url 'main:book_ratring' %}">평가 늘리기</a></li>
             </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -109,9 +68,6 @@
     <div class="book-item-container"></div>
 
 </div>
-
-{#<script src="{% static 'js/supervisor/scrap.js' %}"></script>#}
-
 <script src="{% static 'js/main/index.js' %}"></script>
 
 </body>

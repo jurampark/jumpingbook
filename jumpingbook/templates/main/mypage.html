@@ -22,6 +22,12 @@
         var urlForBookList = "{% url 'recommend:book_list' %}";
         var urlForBookRating = "{% url 'recommend:book_rating' %}";
     </script>
+    <style>
+        .mypage_li
+        {
+          width : 200px;
+        }
+    </style>
 
 </head>
 <body>
@@ -64,10 +70,20 @@
 </nav>
 
 <div class="container">
-
-    마이페이지
+  <ul class="list-group mypage_li">
+    <li class="list-group-item disabled">마이 페이지</li>
+    <li class="list-group-item"><a id="modify" href="#">비밀번호 변경</a></li>
+    <li class="list-group-item"><a id="my-comment" href="#">평가한 책 확인하기</a></li>
+  </ul>
 
 </div>
 
+<div class="container">
+
+    <div class="book-item-container"></div>
+
+</div>
+<script src="{% static 'js/main/mypage.js' %}"></script>
+<script src="{% static 'js/main/index.js' %}"></script>
 </body>
 </html>
