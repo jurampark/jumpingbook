@@ -31,6 +31,14 @@ STATICFILES_DIRS = (
     root("static"),
 )
 
+BOWER_COMPONENTS_ROOT = root("static/components")
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+)
+
 # # Configuring TEMPLATE_DIRS
 # TEMPLATE_DIRS = (
 #     root("templates"),
@@ -58,6 +66,9 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+
+    'djangobower',
+    'bootstrap3',
 
     'django_extensions',
 
@@ -171,3 +182,10 @@ SOCIALACCOUNT_PROVIDERS = \
         # 'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': False,
         'VERSION': 'v2.3'}}
+
+
+# Bower
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'bootstrap',
+)
