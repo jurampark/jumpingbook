@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from main.views import IndexView, LoginView, MyPageView
+from main.views import IndexView, LoginView, MyPageView, BookRatingView
 
 urlpatterns = patterns('',
    url(r'^$', IndexView.as_view(), name='index'),
