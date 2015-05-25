@@ -1,6 +1,7 @@
 {% load staticfiles %}
 
 {% url 'main:book_rating' as url_main_book_rating %}
+{% url 'main:mypage' as url_main_mypage %}
 
 <!DOCTYPE html>
 <html>
@@ -59,10 +60,10 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-
-            <a href="{% url 'account_logout' %}"><button type="button" class="btn btn-default navbar-btn navbar-right">Logout</button></a>
-            <a href="{% url 'main:mypage' %}"><button type="button" class="btn btn-default navbar-btn navbar-right">{{ request.user.username }}님의 페이지</button></a>
-
+            <ul class="nav navbar-nav navbar-right">
+              <li {% if request.path == url_main_mypage %}class="active"{% endif %}><a href="{% url 'main:mypage' %}">{{ request.user.username }}님의 페이지</a></li>
+              <li><a href="{% url 'account_logout' %}">Logout</a></li>
+            <ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
