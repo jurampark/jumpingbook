@@ -2,11 +2,16 @@
 {% load staticfiles %}
 
 {% block head %}
+    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
 {% endblock head %}
 
 {% block contents %}
     <h1>추천된 책</h1>
+    <div class="book-item-container"></div>
 {% endblock contents %}
 
 {% block js_bottom %}
+  <script src="{% static 'js/main/book_recommended.js' %}"></script>
 {% endblock js_bottom %}
