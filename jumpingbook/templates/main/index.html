@@ -92,9 +92,11 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">{{ request.user.username }}</a></li>
-            </ul>
+
+            <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="{% url 'account_logout' %}">Logout</a></button>
+
+            <p class="navbar-text navbar-right">Signed in as {{ request.user.username }}</p>
+
         </div>
         <!-- /.navbar-collapse -->
     </div>
