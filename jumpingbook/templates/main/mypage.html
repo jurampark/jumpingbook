@@ -1,89 +1,21 @@
+{% extends "main/base.html" %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
 
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/main/mypage.css' %}">
+{% endblock head %}
 
-    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
-    <!-- 합쳐지고 최소화된 최신 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+{% block contents %}
+    <h1>마이페이지</h1>
+    <ul class="list-group mypage_li">
+        <li class="list-group-item disabled">마이 페이지</li>
+        <li class="list-group-item"><a id="modify" href="#">비밀번호 변경</a></li>
+        <li class="list-group-item"><a id="my-comment" href="#">평가한 책 확인하기</a></li>
+    </ul>
+{% endblock contents %}
 
-    <!-- 부가적인 테마 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+{% block js_bottom %}
+    <script src="{% static 'js/main/mypage.js' %}"></script>
+{% endblock js_bottom %}
 
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-    <script>
-        var csrftoken = "{{ csrf_token }}";
-        var urlForBookList = "{% url 'recommend:book_list' %}";
-        var urlForBookRating = "{% url 'recommend:book_rating' %}";
-    </script>
-    <style>
-        .mypage_li
-        {
-          width : 200px;
-        }
-    </style>
-
-</head>
-<body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-                Jumping Book
-            </a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">추천 도서 <span class="sr-only">(current)</span></a></li>
-                <li><a id="add-rating" href="#">평가 늘리기</a></li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-
-            <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="{% url 'account_logout' %}">Logout</a></button>
-            <button type="button" class="btn btn-default navbar-btn navbar-right">{{ request.user.username }}님의 페이지</button>
-
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-
-<div class="container">
-  <ul class="list-group mypage_li">
-    <li class="list-group-item disabled">마이 페이지</li>
-    <li class="list-group-item"><a id="modify" href="#">비밀번호 변경</a></li>
-    <li class="list-group-item"><a id="my-comment" href="#">평가한 책 확인하기</a></li>
-  </ul>
-
-</div>
-
-<div class="container">
-
-    <div class="book-item-container"></div>
-
-</div>
-<script src="{% static 'js/main/mypage.js' %}"></script>
-<script src="{% static 'js/main/index.js' %}"></script>
-</body>
-</html>
