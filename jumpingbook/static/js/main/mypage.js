@@ -32,6 +32,9 @@ $( document ).ready(function() {
                                             <div class=\"item-title\">" + item['name'] + "</div> \
                                             <div class=\"item-author\">" + item['author'] + "</div> \
                                             <input type=\"hidden\" class=\"rating\" readonly=\"readonly\" data-fractions=\"2\"/> \
+                                            <div> \
+                                              <button type=\"button\" class=\"btn btn-primary btn-sm\">평가 취소</button> \
+                                            </div> \
                                         </div> \
                                     </div>";
                     $('.book-item-container').append( elem );
