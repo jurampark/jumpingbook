@@ -1,6 +1,6 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
-// var urlForCancelRating = "{% url 'recommend:cancel_rating' %}";
+
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/main/mypage.css' %}">
     <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
     <script>
       var urlForRatedBook = "{% url 'recommend:rated_book' %}";
-
+      var urlForCancelRating = "{% url 'recommend:cancel_rating' %}";
     </script>
 {% endblock head %}
 
