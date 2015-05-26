@@ -19,11 +19,9 @@ class RatingBookView(CsrfExemptMixin, View):
         item_id = request.POST.get('item-id')
         rating = int(float(request.POST.get('rating'))*2)
 
-
         try:
             user_book_rating = UserBookRating.objects.create(user=request.user,book=Book.objects.get(id=item_id),score=rating)
         except Exception as e:
-            print e
             return HttpResponseBadRequest()
 
         return HttpResponse(json.dumps({}, cls=DjangoJSONEncoder), content_type="application/json")
@@ -44,3 +42,13 @@ class RatedBookListView(CsrfExemptMixin, LoginRequiredMixin, View):
             })
 
         return HttpResponse(json.dumps(rated_books, cls=DjangoJSONEncoder), content_type="application/json")
+
+class CancelRatingBookView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        item_id = request.POST.get('item-id')
+        try:
+            UserBookRating.objects.filter(user=request.user, book=Book.objects.get(id=item_id)).delete()
+        except Exception as e:
+            return HttpResponseBadRequest()
+
+        return HttpResponse(json.dumps({}, cls=DjangoJSONEncoder), content_type="application/json")
