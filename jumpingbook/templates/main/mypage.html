@@ -1,6 +1,6 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
-
+// var urlForCancelRating = "{% url 'recommend:cancel_rating' %}";
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/main/mypage.css' %}">
     <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
     <script>
       var urlForRatedBook = "{% url 'recommend:rated_book' %}";
+
     </script>
 {% endblock head %}
 
@@ -16,7 +17,7 @@
     <ul class="list-group mypage_li">
         <li class="list-group-item disabled">마이 페이지</li>
         <li class="list-group-item"><a id="modify" href="#">비밀번호 변경</a></li>
-        <li class="list-group-item"><a id="my-comment" href="#">평가한 책 확인하기</a></li>
+        <li class="list-group-item"><a id="my-rating" href="#">평가한 책 확인하기</a></li>
     </ul>
     <div class='book-item-container'></div>
 {% endblock contents %}
