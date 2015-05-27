@@ -8,7 +8,7 @@ from django.views.generic import View
 from recommend.models import Book, UserBookRating
 
 
-class BookListView(LoginRequiredMixin, View):
+class BookListView(CsrfExemptMixin, LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         already_rating_book_list = request.user.userbookrating_set.values_list('book_id', flat=True)
         books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "name", "author", "publisher", "published_date")
