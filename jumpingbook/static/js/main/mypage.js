@@ -46,7 +46,7 @@ $(document).ready(function () {
                     e.preventDefault();
                     $.ajax({
                         type: 'POST',
-                        url: urlForCancelRate,
+                        url: urlForCancelRating,
                         data: {
                             "item-id": $(this).parent().parent().attr('item-id')
                         },
