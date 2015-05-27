@@ -1,73 +1,70 @@
 function csrfSafeMethod(method) {
-  // these HTTP methods do not require CSRF protection
-  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 $.ajaxSetup({
-  beforeSend: function(xhr, settings) {
-    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    beforeSend: function (xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
     }
-  }
 });
 
+$(document).ready(function () {
 
+    var lodingDiv = $("#loadingDiv");
 
-$( document ).ready(function() {
+    lodingDiv.hide();
 
-  var $loading = $('#loadingDiv').hide();
+    $.ajax({
+        type: 'POST',
+        url: urlForBookList,
+        data: {},
+        success: function (data) {
+            $('input.rating').off();
+            $('.book-item-container').empty();
 
-  $("#loadingDiv").bind("ajaxSend", function() {
-    $(this).show();
-  }).bind("ajaxStop", function() {
-    $(this).hide();
-  }).bind("ajaxError", function() {
-    $(this).hide();
-  });
-
-
-  $.ajax({
-    type: 'POST',
-    url: urlForBookList,
-    data: {},
-    success: function(data){
-      $('input.rating').off();
-      for(var index in data) {
-        var item = data[index];
-        var elem = "    <div class=\"book-item\" item-id=\"" + item['id'] + "\"> \
-        <div class=\"img-container\"> \
-        <img src=\"http://youth.sangju.go.kr/fileUpload/contentsboard/book_00406.jpg\" /> \
-        </div> \
-        <div class=\"star-rating-container\"> \
-          <div class=\"item-title\">" + item['name'] + "</div> \
-          <div class=\"item-author\">" + item['author'] + "</div> \
-          <input type=\"hidden\" class=\"rating\" data-fractions=\"2\"/> \
-        </div> \
-        </div>";
-        $('.book-item-container').append( elem );
-      }
-      $('input.rating').rating();
-      $('input.rating').on('change', function () {
-        var current_item = $(this).parent().parent();
-        $.ajax({
-          type: 'POST',
-          url: urlForBookRating,
-          data: {
-            "item-id": $(this).parent().parent().attr('item-id'),
-            "rating" : $(this).val()
-          },
-          success:function()
-          {
-            current_item.remove();
-          },
-          error: function(xhr, type, exception) {
-            alert("ajax error response type2 "+type);
-          }
-        })
-      })
-    },
-    error: function(xhr, type, exception) {
-      alert("ajax error response type1 "+type);
-    }
-  });
-
+            for (var index in data) {
+                var item = data[index];
+                var elem = "    <div class=\"book-item\" item-id=\"" + item['id'] + "\"> \
+                                <div class=\"img-container\"> \
+                                <img src=\"http://youth.sangju.go.kr/fileUpload/contentsboard/book_00406.jpg\" /> \
+                                </div> \
+                                <div class=\"star-rating-container\"> \
+                                  <div class=\"item-title\">" + item['name'] + "</div> \
+                                  <div class=\"item-author\">" + item['author'] + "</div> \
+                                  <input type=\"hidden\" class=\"rating\" data-fractions=\"2\"/> \
+                                </div> \
+                                </div>";
+                $('.book-item-container').append(elem);
+            }
+            $('input.rating').rating();
+            $('input.rating').on('change', function () {
+                var current_item = $(this).parent().parent();
+                $.ajax({
+                    type: 'POST',
+                    url: urlForBookRating,
+                    data: {
+                        "item-id": $(this).parent().parent().attr('item-id'),
+                        "rating": $(this).val()
+                    },
+                    success: function () {
+                        current_item.remove();
+                    },
+                    error: function (xhr, type, exception) {
+                        alert("ajax error response type2 " + type);
+                    }
+                })
+            })
+        },
+        error: function (xhr, type, exception) {
+            alert("ajax communication error" + type);
+        },
+        beforeSend: function () {
+            lodingDiv.show();
+        },
+        complete: function () {
+            lodingDiv.hide();
+        }
+    });
 });
