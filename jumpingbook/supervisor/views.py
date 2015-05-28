@@ -24,24 +24,28 @@ class ScrapKyoboBookView(View):
 
     def post(self, request, *args, **kwargs):
 
-        category = Category.objects.get(name='한국소설')
+        category_code = request.POST.get('category-code')
+        category_name = request.POST.get('category-name')
+
+        category, created = Category.objects.get_or_create(name=category_name)
 
         for targetPage in range(1,5):
-            payload = {'linkClass': '0101', 'mallGb': 'KOR', 'targetPage': str(targetPage)}
+            payload = {'linkClass': category_code, 'mallGb': 'KOR', 'targetPage': str(targetPage)}
             r = requests.post("http://www.kyobobook.co.kr/category/recCategoryBookKorList.laf", data=payload)
 
             soup = BeautifulSoup(r.text)
 
             book_list = soup.find(id="detailList").find('table').find_all('tr')
             for book_item in book_list:
-                title = book_item.select('.book_title dt a strong')[0].string.strip()
+                image_url = book_item.select('.book_image img')[0]['src'].encode('utf-8')
+                title = book_item.select('.book_title dt a strong')[0].string.strip().encode('utf-8')
                 book_info = str(book_item.select('.book_title dd')[0])
                 author = book_info[book_info.find('저자')+10:book_info.find('<span', book_info.find('저자')+10)-2].strip()
                 publisher = book_info[book_info.find('출판사')+14:book_info.find('<!--', book_info.find('출판사')+14)].strip()
                 published_date = book_info[ book_info.find('</span>',book_info.find('<!-- 출판일 -->')+12)+9:book_info.find('<!--', book_info.find('출판일')+12)].strip()
 
-                print title.encode('utf-8') + "/" + author + "/" + publisher + "/" + published_date
-                book = Book(name=title.encode('utf-8'), category=category, author=author, publisher=publisher, published_date=published_date.replace(".","-"))
+                # print title.encode('utf-8') + "/" + author + "/" + publisher + "/" + published_date
+                book = Book(name=title,image_url=image_url, category=category, author=author, publisher=publisher, published_date=published_date.replace(".","-"))
                 book.save()
 
         response_data = {

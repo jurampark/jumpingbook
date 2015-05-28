@@ -22,19 +22,20 @@ $(document).ready(function () {
             data: {},
             success: function (data) {
                 $('input.rating').off();
+                $('.book-item-container').empty();
                 for (var index in data) {
                     var item = data[index];
                     var elem = "    <div class=\"book-item\" item-id=\"" + item['id'] + "\"> \
-          <div class=\"img-container\"> \
-          <img src=\"http://youth.sangju.go.kr/fileUpload/contentsboard/book_00406.jpg\" /> \
-          </div> \
-          <div class=\"star-rating-container\" score=\"" + item['score'] + "\"> \
-          <div class=\"item-title\">" + item['name'] + "</div> \
-          <div class=\"item-author\">" + item['author'] + "</div> \
-          <input type=\"hidden\" class=\"rating\" readonly=\"readonly\" data-fractions=\"2\"/> \
-          <button type=\"button\" class=\"cancel btn btn-default btn-sm\">평가 취소</button> \
-          </div> \
-          </div>";
+                                        <div class=\"img-container\"> \
+                                            <img src=\"" + item['image_url'] + "\" /> \
+                                        </div> \
+                                        <div class=\"star-rating-container\" score=\"" + item['score'] + "\"> \
+                                        <div class=\"item-title\">" + item['name'] + "</div> \
+                                        <div class=\"item-author\">" + item['author'] + "</div> \
+                                            <input type=\"hidden\" class=\"rating\" readonly=\"readonly\" data-fractions=\"2\"/> \
+                                            <button type=\"button\" class=\"cancel btn btn-default btn-sm\">평가 취소</button> \
+                                        </div> \
+                                    </div>";
                     $('.book-item-container').append(elem);
                 }
                 $('input.rating').each(function (index) {

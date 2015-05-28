@@ -14,12 +14,19 @@
 
 {% block contents %}
     <h1>마이페이지</h1>
-    <ul class="list-group mypage_li">
-        <li class="list-group-item disabled">마이 페이지</li>
-        <li class="list-group-item"><a id="modify" href="#">비밀번호 변경</a></li>
-        <li class="list-group-item"><a id="my-rating" href="#">평가한 책 확인하기</a></li>
-    </ul>
-    <div class='book-item-container'></div>
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="list-group mypage_li">
+                <li class="list-group-item disabled">마이 페이지</li>
+                <li class="list-group-item"><a id="modify" href="#">비밀번호 변경</a></li>
+                <li class="list-group-item"><a id="my-rating" href="#">평가한 책 확인하기</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class='book-item-container'>
+            </div>
+        </div>
+    </div>
 {% endblock contents %}
 
 {% block js_bottom %}

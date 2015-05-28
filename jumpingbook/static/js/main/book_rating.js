@@ -10,16 +10,15 @@ $.ajaxSetup({
     }
 });
 
-$(document).ready(function () {
+var loadingDiv;
 
-    var lodingDiv = $("#loadingDiv");
-
-    lodingDiv.hide();
+function refreshList() {
+    var category_id = $('.category-list-item.active').attr('category-id');
 
     $.ajax({
         type: 'POST',
         url: urlForBookList,
-        data: {},
+        data: {'category-id': category_id},
         success: function (data) {
             $('input.rating').off();
             $('.book-item-container').empty();
@@ -28,7 +27,7 @@ $(document).ready(function () {
                 var item = data[index];
                 var elem = "    <div class=\"book-item\" item-id=\"" + item['id'] + "\"> \
                                 <div class=\"img-container\"> \
-                                <img src=\"http://youth.sangju.go.kr/fileUpload/contentsboard/book_00406.jpg\" /> \
+                                <img src=\"" + item['image_url'] + "\" /> \
                                 </div> \
                                 <div class=\"star-rating-container\"> \
                                   <div class=\"item-title\">" + item['name'] + "</div> \
@@ -61,11 +60,28 @@ $(document).ready(function () {
             alert("ajax communication error" + type);
         },
         beforeSend: function () {
-            lodingDiv.show();
+            loadingDiv.show();
         },
         complete: function () {
-            lodingDiv.hide();
+            loadingDiv.hide();
         }
     });
+}
+
+
+$(document).ready(function () {
+
+    loadingDiv = $(".loadingDiv-container");
+
+    loadingDiv.hide();
+
+    $('.category-list-item').click(function(e) {
+        e.preventDefault();
+        $('.category-list-item.active').removeClass('active');
+        $(this).addClass('active');
+        refreshList();
+    });
+
+    refreshList();
 
 });

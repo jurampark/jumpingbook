@@ -13,6 +13,7 @@ class Category(models.Model):
 
 class Book(models.Model):
     name = models.CharField(max_length=100)
+    image_url = models.URLField()
     category = models.ForeignKey('recommend.Category')
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=100)

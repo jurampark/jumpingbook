@@ -10,8 +10,12 @@ from recommend.models import Book, UserBookRating
 
 class BookListView(CsrfExemptMixin, LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
+        category_id = request.POST.get('category-id','');
         already_rating_book_list = request.user.userbookrating_set.values_list('book_id', flat=True)
-        books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "name", "author", "publisher", "published_date")
+        if ( len(category_id) == 0 ):
+            books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "name", "image_url", "category__name", "author", "publisher", "published_date")
+        else:
+            books = Book.objects.filter(category__id=category_id).exclude(id__in=already_rating_book_list).values("id", "name", "image_url", "category__name", "author", "publisher", "published_date")
         return HttpResponse(json.dumps(list(books), cls=DjangoJSONEncoder), content_type="application/json")
 
 class RatingBookView(CsrfExemptMixin, View):
@@ -34,6 +38,7 @@ class RatedBookListView(CsrfExemptMixin, LoginRequiredMixin, View):
             book = user_book_rating.book
             rated_books.append({
                 "id": book.id,
+                "image_url": book.image_url,
                 "name": book.name,
                 "author": book.author,
                 "publisher": book.publisher,

@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import TemplateView, View
-from recommend.models import UserBookRating
+from recommend.models import UserBookRating, Category
 
 
 class LoginView(TemplateView):
@@ -18,6 +18,12 @@ class MyPageView(LoginRequiredMixin, TemplateView):
 
 class BookRatingView(LoginRequiredMixin, TemplateView):
     template_name = "main/book_rating.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(BookRatingView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
 
 class BookRecommendedView(LoginRequiredMixin, View):
     template_name = "main/book_recommended.html"

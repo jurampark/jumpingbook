@@ -11,12 +11,15 @@ $.ajaxSetup({
 });
 
 $( document ).ready(function() {
-    $('#korea-novel').click( function(e) {
+    $('.category-item').click( function(e) {
         e.preventDefault();
         $.ajax({
             type: 'POST',
             url: urlForScrap,
-            data: {},
+            data: {
+                'category-code': $(this).attr('category-code'),
+                'category-name': $(this).attr('category-name')
+            },
             success: function(data){
                 var value = data['testkey'];
                 alert( value );

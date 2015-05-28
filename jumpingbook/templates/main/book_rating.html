@@ -12,13 +12,25 @@
 {% endblock head %}
 
 {% block contents %}
-    <div id ="center" style="position:fixed;top:50%;left:50%">
+    <div id="center" class="loadingDiv-container" style="position:fixed;top:50%;left:50%">
         <div id="loadingDiv">
             <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
         </div>
     </div>
     <h1>평가 늘리기</h1>
-    <div class="book-item-container"></div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group category-list">
+                <a href="#" class="list-group-item category-list-item active" category-id="">
+                    모든 책
+                </a>
+                {% for category in categories %}
+                    <a href="#" class="list-group-item category-list-item" category-id="{{ category.id }}">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-10"><div class="book-item-container"></div></div>
+    </div>
 {% endblock contents %}
 
 {% block js_bottom %}
