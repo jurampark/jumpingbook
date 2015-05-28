@@ -12,12 +12,17 @@
 {% endblock head %}
 
 {% block contents %}
-    <div id="center" class="loadingDiv-container" style="position:fixed;top:50%;left:50%">
+    <div id="center" style="position:fixed;top:50%;left:50%;z-index:5">
         <div id="loadingDiv">
             <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
         </div>
+        <div id="alert-container" style="display: none;">
+            <div class="alert alert-success" role="alert">
+                <strong> - 당신의 소중한 평가가 저장되었습니다 - </strong>
+            </div>
+        </div>
     </div>
-    <h1>평가 늘리기</h1>
+
     <div class="row">
         <div class="col-md-2">
             <div class="list-group category-list">

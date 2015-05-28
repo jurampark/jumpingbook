@@ -10,12 +10,24 @@ $.ajaxSetup({
     }
 });
 
+var mypage_container;
+var check_rating_history_container;
+
 $(document).ready(function () {
 
-    $('input.rating').rating();
+    mypage_container = $(".mypage-container");
+    check_rating_history_container = $(".book-item-container");
 
-    $('#my-rating').click(function (e) {
+    $('#mypage').click( function(e) {
         e.preventDefault();
+        mypage_container.show();
+        check_rating_history_container.hide();
+    });
+    $('#check-rating-history').click(function (e) {
+        e.preventDefault();
+        mypage_container.hide();
+        check_rating_history_container.show();
+
         $.ajax({
             type: 'POST',
             url: urlForRatedBook,
@@ -65,6 +77,13 @@ $(document).ready(function () {
                 alert("ajax error response type " + type);
             }
         });
+    });
+
+    $('.mypage-list-item').click(function(e) {
+        e.preventDefault();
+
+        $('.mypage-list-item.active').removeClass('active');
+        $(this).addClass('active');
     });
 
 });

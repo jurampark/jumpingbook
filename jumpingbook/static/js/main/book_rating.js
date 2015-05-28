@@ -11,6 +11,7 @@ $.ajaxSetup({
 });
 
 var loadingDiv;
+var alertDiv;
 
 function refreshList() {
     var category_id = $('.category-list-item.active').attr('category-id');
@@ -48,10 +49,20 @@ function refreshList() {
                         "rating": $(this).val()
                     },
                     success: function () {
+                        alertDiv.show();
+                        setTimeout(function() {
+                            alertDiv.hide();
+                        }, 2000);
                         current_item.remove();
                     },
                     error: function (xhr, type, exception) {
                         alert("ajax error response type2 " + type);
+                    },
+                    beforeSend: function () {
+                        loadingDiv.show();
+                    },
+                    complete: function () {
+                        loadingDiv.hide();
                     }
                 })
             })
@@ -71,7 +82,8 @@ function refreshList() {
 
 $(document).ready(function () {
 
-    loadingDiv = $(".loadingDiv-container");
+    loadingDiv = $("#loadingDiv");
+    alertDiv = $("#alert-container");
 
     loadingDiv.hide();
 
