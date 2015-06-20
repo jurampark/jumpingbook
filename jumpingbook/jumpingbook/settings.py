@@ -22,7 +22,7 @@ root = lambda *dirs: join(abspath(BASE_DIR), *dirs)
 MEDIA_ROOT = root("media")
 
 # Configuring STATIC_ROOT
-STATIC_ROOT = root("collected_static")
+STATIC_ROOT = root("./../../static")
 STATIC_URL = '/static/'
 
 # Additional locations of static files
