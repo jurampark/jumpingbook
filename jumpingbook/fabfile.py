@@ -1,9 +1,56 @@
-from fabric.api import local
-from fabric.context_managers import settings
+from __future__ import with_statement
+from fabric.api import local, settings, abort, run, cd, env
+from fabric.contrib.console import confirm
+from fabric.contrib.files import exists
 
+env.hosts = ['54.92.86.110']
+env.user = 'ec2-user'
+env.key_filename = '~/.ssh/ramju.pem'
+
+git_repo_url = "git@github.com:parkjuram/jumpingbook.git"
+project_home_directory  = '~/workspace/django/jumpingbook'
+project_source_directory = project_home_directory + '/source/jumpingbook'
+project_virtualenv_directory = project_home_directory + '/virtualenv'
+
+def _test():
+    with settings(warn_only=True):
+        test_result = local("./manage.py test my_app",capture=True)
+    if test_result.faild and not confirm("Tests failed. Continue anyway?"):
+        abort("Aborting at user request.")
 
 def prepare_deploy():
-    # local("./manage.py test my_app")
+    # _test();
     with settings(warn_only=True):
         local("git add -p && git commit")
         local("git push")
+
+def _create_directory_if_necessary():
+    for subfoler in ('database', 'static', 'source', 'virtualenv'):
+        run('mkdir -p %s/%s' % (project_home_directory, subfoler))
+
+def _get_latest_source():
+    if exists(project_source_directory + '.git'):
+        with cd(project_source_directory):
+            run("git pull")
+    else:
+        run("git clone %s %s" % (git_repo_url, project_source_directory+'/..') )
+        
+def _update_virtualenv():
+    if not exists(project_virtualenv_directory+'/bin/pip'):
+        run('virtualenv %s' % (project_virtualenv_directory))
+    run('%s/bin/pip install -r %s/requirements.txt' % (project_virtualenv_directory, project_source_directory))
+
+def _update_static_files():
+    with cd(project_source_directory):
+        run('%s/bin/python manage.py collectstatic --noinput' % project_virtualenv_directory )
+
+def _update_database():
+    with cd(project_source_directory):
+        run('%s/bin/python manage.py syncdb' % project_virtualenv_directory )
+
+def deploy():
+    _create_directory_if_necessary()
+    _get_latest_source()
+    _update_virtualenv()
+    _update_static_files()
+    _update_database()
