@@ -38,7 +38,7 @@ def _get_latest_source():
         
 def _update_virtualenv():
     if not exists(remote_virtualenv_directory+'/bin/pip'):
-        run('virtualenv %s' % (remote_virtualenv_directory))
+        run('virtualenv --python=pytohn2.7.6 %s' % (remote_virtualenv_directory))
     run('%s/bin/pip install -r %s/requirements.txt' % (remote_virtualenv_directory, remote_source_directory))
 
 def _update_static_files():
