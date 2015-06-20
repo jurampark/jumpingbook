@@ -47,7 +47,8 @@ def _update_static_files():
 
 def _update_database():
     with cd(remote_source_directory):
-        run('%s/bin/python manage.py syncdb' % remote_virtualenv_directory )
+        run('%s/bin/python manage.py makemigrations' % remote_virtualenv_directory )
+        run('%s/bin/python manage.py migrate' % remote_virtualenv_directory )
 
 def deploy():
     _create_directory_if_necessary()
