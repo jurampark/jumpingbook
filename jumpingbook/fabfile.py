@@ -8,7 +8,7 @@ env.user = 'ec2-user'
 env.key_filename = '~/.ssh/ramju.pem'
 
 git_repo_url = "git@github.com:parkjuram/jumpingbook.git"
-remote_root_directory  = '~/workspace/django/jumpingbook'
+remote_root_directory  = '/home/ec2-user/workspace/django/jumpingbook'
 remote_git_directory = remote_root_directory + '/source'
 remote_source_directory = remote_root_directory + '/source/jumpingbook'
 remote_virtualenv_directory = remote_root_directory + '/virtualenv'
