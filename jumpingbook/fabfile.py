@@ -9,7 +9,7 @@ env.key_filename = '~/.ssh/ramju.pem'
 
 git_repo_url = "git@github.com:parkjuram/jumpingbook.git"
 project_home_directory  = '~/workspace/django/jumpingbook'
-project_source_directory = project_home_directory + '/source/jumpingbook'
+project_source_directory = project_home_directory + '/source'
 project_virtualenv_directory = project_home_directory + '/virtualenv'
 
 def _test():
@@ -33,7 +33,7 @@ def _get_latest_source():
         with cd(project_source_directory):
             run("git pull")
     else:
-        run("git clone %s %s" % (git_repo_url, project_source_directory+'/..') )
+        run("git clone %s %s" % (git_repo_url, project_source_directory) )
         
 def _update_virtualenv():
     if not exists(project_virtualenv_directory+'/bin/pip'):
