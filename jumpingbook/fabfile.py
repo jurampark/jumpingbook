@@ -8,7 +8,7 @@ env.user = 'ec2-user'
 env.key_filename = '~/.ssh/ramju.pem'
 
 git_repo_url = "git@github.com:parkjuram/jumpingbook.git"
-remote_root_directory  = '/home/ec2-user/workspace/django/jumpingbook'
+remote_root_directory  = '~/workspace/django/jumpingbook'
 remote_git_directory = remote_root_directory + '/source'
 remote_source_directory = remote_root_directory + '/source/jumpingbook'
 remote_virtualenv_directory = remote_root_directory + '/virtualenv'
@@ -39,7 +39,7 @@ def _get_latest_source():
 def _update_virtualenv():
     if not exists(remote_virtualenv_directory+'/bin/pip'):
         run('virtualenv --python=python2.7 %s' % (remote_virtualenv_directory))
-    sudo('%s/bin/pip install -r %s/requirements.txt' % (remote_virtualenv_directory, remote_source_directory))
+    sudo('%s/bin/pip install -r %s/requirements.txt' % (remote_virtualenv_directory, remote_source_directory), user="ec2-user")
 
 def _update_static_files():
     with cd(remote_source_directory):
