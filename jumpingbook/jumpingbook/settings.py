@@ -72,6 +72,8 @@ INSTALLED_APPS = (
 
     'django_extensions',
 
+    'djcelery',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
