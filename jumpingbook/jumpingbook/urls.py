@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^feasible/', include('feasible.urls', namespace='feasible')),
     url(r'^supervisor/', include('supervisor.urls', namespace='supervisor')),
     url(r'^recommend/', include('recommend.urls', namespace='recommend')),
+    url(r'^users/', include('users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 ]

@@ -28,6 +28,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='book',
             name='category',
-            field=models.ForeignKey(to='recommend.Category'),
+            field=models.ForeignKey(to='core.models.Category'),
         ),
     ]

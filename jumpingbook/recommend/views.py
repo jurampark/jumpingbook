@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
 from django.shortcuts import render
 from django.views.generic import View
-from recommend.models import Book, UserBookRating
+from core.models import Book
+from users.models import UserBookRating
 
 
 class BookListView(CsrfExemptMixin, LoginRequiredMixin, View):
@@ -24,7 +25,8 @@ class RatingBookView(CsrfExemptMixin, View):
         rating = int(float(request.POST.get('rating'))*2)
 
         try:
-            user_book_rating = UserBookRating.objects.create(user=request.user,book=Book.objects.get(id=item_id),score=rating)
+            user_book_rating, created = UserBookRating.objects.get_or_create(user=request.user, book=Book.objects.get(id=item_id),
+                                                                             defaults={'score':rating})
         except Exception as e:
             return HttpResponseBadRequest()
 

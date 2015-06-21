@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('score', models.IntegerField(default=5)),
-                ('book', models.ForeignKey(to='recommend.Book')),
+                ('book', models.ForeignKey(to='core.models.Book')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={

@@ -5,7 +5,10 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import TemplateView, View
-from recommend.models import UserBookRating, Category, Book
+from recommend.models import Category
+from core.models import Book, Category
+from users.models import UserBookRating
+
 
 class LoginView(TemplateView):
     template_name = "main/login.html"
