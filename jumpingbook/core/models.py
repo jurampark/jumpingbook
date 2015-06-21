@@ -23,6 +23,9 @@ class Book(models.Model):
     publisher = models.CharField(max_length=100)
     published_date = models.DateField(default=datetime.date.today)
 
+    class Meta:
+        unique_together=(("name","author"),)
+
     # @property
     # def total_score(self):
     #     sum = self.userbookrating_set.aggregate(Sum('score'))

@@ -1,4 +1,4 @@
-from braces.views import CsrfExemptMixin
+from braces.views import CsrfExemptMixin, LoginRequiredMixin
 from django.core.serializers import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponseBadRequest, HttpResponse
@@ -7,7 +7,7 @@ from core.models import Book
 from users.models import UserBookBlackList, UserBookWishList
 
 
-class AddBookToBlackListView(CsrfExemptMixin, View):
+class AddBookToBlackListView(CsrfExemptMixin, LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         item_id = request.POST.get('item-id')
 
@@ -18,7 +18,7 @@ class AddBookToBlackListView(CsrfExemptMixin, View):
 
         return HttpResponse(json.dumps({}, cls=DjangoJSONEncoder), content_type="application/json")
 
-class AddBookToWishListView(CsrfExemptMixin, View):
+class AddBookToWishListView(CsrfExemptMixin, LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         item_id = request.POST.get('item-id')
 
