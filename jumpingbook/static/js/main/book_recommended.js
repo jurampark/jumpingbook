@@ -26,7 +26,7 @@ $(document).ready(function () {
                 current_item.remove();
             },
             error: function (xhr, type, exception) {
-                alert("ajax error response type2 " + type);
+                alert("ajax error response type " + type);
             }
         });
     });
