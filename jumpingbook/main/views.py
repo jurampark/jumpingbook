@@ -7,6 +7,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from recommend.models import UserBookRating, Category, Book
 
+class BookSearchView(TemplateView):
+    template_name = "main/search.html"
 
 class LoginView(TemplateView):
     template_name = "main/login.html"
