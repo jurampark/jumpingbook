@@ -59,7 +59,7 @@
                 <li {% if request.path == url_main_book_recommended %}class="active"{% endif %}><a href="{% url 'main:book_recommended' %}">추천 도서</a></li>
                 <li {% if request.path == url_main_book_rating %}class="active"{% endif %}><a href="{% url 'main:book_rating' %}">평가 늘리기</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search" action=="{% url 'main:search' %}" method="get">
+            <form class="navbar-form navbar-left" role="search" action="{% url 'main:search' %}" method="get">
                 <div class="form-group">
                     <input type="text" name="query" class="form-control" placeholder="Search">
                 </div>
