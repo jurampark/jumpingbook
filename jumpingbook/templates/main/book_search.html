@@ -2,11 +2,31 @@
 {% load staticfiles %}
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
     <script>
     </script>
 {% endblock head %}
 
 {% block contents %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="book-item-container">
+                {% for book in books %}
+                    <div class="book-item" item-id="{{ book.id }}" >
+                        <div class="img-container">
+                            <img src="{{ book.image_url }}" />
+                        </div>
+                        <div class="star-rating-container">
+                            <div class="item-title">{{ item.name }}</div>
+                            <div class="item-author">{{ item.author }}</div>
+                            <input type="hidden" class="rating" data-fractions="2"/>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock contents %}
 
 {% block js_bottom %}
