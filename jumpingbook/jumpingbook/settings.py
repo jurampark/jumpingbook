@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'recommend',
     'supervisor',
     'main',
+    'users',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -9,10 +9,16 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __unicode__(self):
+        return '%s' % self.name
+
 class Book(models.Model):
     name = models.CharField(max_length=100)
     image_url = models.URLField()
-    category = models.ForeignKey('core.models.Category')
+    category = models.ForeignKey('core.Category')
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=100)
     published_date = models.DateField(default=datetime.date.today)
@@ -21,10 +27,3 @@ class Book(models.Model):
     # def total_score(self):
     #     sum = self.userbookrating_set.aggregate(Sum('score'))
     #     return sum
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __unicode__(self):
-        return '%s' % self.name
