@@ -7,5 +7,5 @@ urlpatterns = patterns('',
    url(r'^mypage/$', MyPageView.as_view(), name='mypage'),
    url(r'^book/rating$', BookRatingView.as_view(), name='book_rating'),
    url(r'^book/recommended$', BookRecommendedView.as_view(), name='book_recommended'),
-   url(r'^book/search$', BookSearchView.as_view(), name='search')
+   url(r'^book/search$', BookSearchView.as_view(), name='book_search')
 )
