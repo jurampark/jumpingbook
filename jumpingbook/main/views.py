@@ -5,7 +5,6 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import TemplateView, View
-from recommend.models import Category
 from core.models import Book, Category
 from users.models import UserBookRating
 

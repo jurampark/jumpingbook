@@ -9,7 +9,6 @@ from django.views.generic import TemplateView, View
 
 # SuperuserRequiredMixin,
 import requests
-from recommend.models import Category
 from core.models import Book, Category
 
 
