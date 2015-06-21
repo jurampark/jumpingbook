@@ -1,5 +1,5 @@
+import json
 from braces.views import CsrfExemptMixin, LoginRequiredMixin
-from django.core.serializers import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponseBadRequest, HttpResponse
 from django.views.generic import View
