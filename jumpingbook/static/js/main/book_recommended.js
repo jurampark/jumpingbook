@@ -38,9 +38,9 @@ $(document).ready(function () {
                 "rating": $(this).val()
             },
             success: function () {
-              alertDiv.show();
+              $("#alert-rate-container").show();
               setTimeout(function() {
-                  alertDiv.hide();
+                  $("#alert-rate-container").hide();
               }, 2000);
                 current_item.remove();
             },
@@ -55,6 +55,73 @@ $(document).ready(function () {
             }
         });
     })
+
+
+    $(".btn-wish").mouseover(function(){
+      //var current_item =
+        $(this).css("color", "blue");
+    }).mouseout(function(){
+        $(this).css("color", "black");
+    });
+    $(".btn-wish").on('click', function(){
+      var current_item = $(this).parent().parent().parent();
+      $.ajax({
+          type: 'POST',
+          url: urlForAddWishList,
+          data: {
+              "item-id": current_item.attr('item-id'),
+          },
+          success: function () {
+            $("#alert-wish-container").show();
+            setTimeout(function() {
+                $("#alert-wish-container").hide();
+            }, 2000);
+              current_item.remove();
+          },
+          error: function (xhr, type, exception) {
+              alert("ajax error response type " + type);
+          },
+          beforeSend: function () {
+              loadingDiv.show();
+          },
+          complete: function () {
+              loadingDiv.hide();
+          }
+      });
+    });
+
+    $(".btn-black").mouseover(function(){
+      //var current_item =
+        $(this).css("color", "red");
+    }).mouseout(function(){
+        $(this).css("color", "black");
+    });
+    $(".btn-wish").on('click', function(){
+      var current_item = $(this).parent().parent().parent();
+      $.ajax({
+          type: 'POST',
+          url: urlForAddBlackList,
+          data: {
+              "item-id": current_item.attr('item-id'),
+          },
+          success: function () {
+            $("#alert-black-container").show();
+            setTimeout(function() {
+                $("#alert-black-container").hide();
+            }, 2000);
+              current_item.remove();
+          },
+          error: function (xhr, type, exception) {
+              alert("ajax error response type " + type);
+          },
+          beforeSend: function () {
+              loadingDiv.show();
+          },
+          complete: function () {
+              loadingDiv.hide();
+          }
+      });
+    });
 });
 
 
