@@ -7,9 +7,6 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from recommend.models import UserBookRating, Category, Book
 
-class BookSearchView(TemplateView):
-    template_name = "main/search.html"
-
 class LoginView(TemplateView):
     template_name = "main/login.html"
 
@@ -67,25 +64,12 @@ class BookRecommendedView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         pass
 
-        # Book.objects.values("id", "name", "author", "publisher", "published_date")
+class BookSearchView(TemplateView):
+    template_name = "main/book_search.html"
 
-        # already_rating_book_list = request.user.userbookrating_set.values_list('book_id', flat=True)
-        # books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "name", "author", "publisher", "published_date")
-        # return HttpResponse(json.dumps(list(books), cls=DjangoJSONEncoder), content_type="application/json")
-        #
-        # user_book_ratings = request.user.userbookrating_set.select_related('book').all()
-        # rated_books = []
-        # for user_book_rating in user_book_ratings:
-        #     book = user_book_rating.book
-        #     rated_books.append({
-        #         "id": book.id,
-        #         "name": book.name,
-        #         "author": book.author,
-        #         "publisher": book.publisher,
-        #         "published_date": book.published_date,
-        #         "score": user_book_rating.score
-        #     })
-        #
-        # return HttpResponse(json.dumps(rated_books, cls=DjangoJSONEncoder), content_type="application/json")
-        #
-        # UserBookRating.objects
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get('query','')
+        context = super(BookSearchView, self).get_context_data(**kwargs)
+        context['books'] = Book.objects.filter(name__contains=query).all()
+        print context['books']
+        return context
