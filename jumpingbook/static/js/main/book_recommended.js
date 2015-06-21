@@ -67,7 +67,7 @@ $(document).ready(function () {
       var current_item = $(this).parent().parent().parent();
       $.ajax({
           type: 'POST',
-          url: urlForWishList,
+          url: urlForAddWishList,
           data: {
               "item-id": current_item.attr('item-id'),
           },
@@ -100,7 +100,7 @@ $(document).ready(function () {
       var current_item = $(this).parent().parent().parent();
       $.ajax({
           type: 'POST',
-          url: urlForBlackList,
+          url: urlForAddBlackList,
           data: {
               "item-id": current_item.attr('item-id'),
           },
