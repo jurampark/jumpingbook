@@ -2,15 +2,27 @@
 {% load staticfiles %}
 
 {% block head %}
+    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
     <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
     <script>
+      var urlForBookRating = "{% url 'recommend:book_rating' %}";
     </script>
 {% endblock head %}
 
 {% block contents %}
     <div class="row">
         <div class="col-md-12">
+            <div id="center" style="position:fixed;top:50%;left:50%;z-index:5">
+                <div id="loadingDiv">
+                    <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
+                </div>
+                <div id="alert-container" style="display: none;">
+                    <div class="alert alert-success" role="alert">
+                        <strong> - 당신의 소중한 평가가 저장되었습니다 - </strong>
+                    </div>
+                </div>
+            </div>
             <div class="book-item-container">
                 {% for book in books %}
                     <div class="book-item" item-id="{{ book.id }}" >
@@ -18,8 +30,8 @@
                             <img src="{{ book.image_url }}" />
                         </div>
                         <div class="star-rating-container">
-                            <div class="item-title">{{ item.name }}</div>
-                            <div class="item-author">{{ item.author }}</div>
+                            <div class="item-title">{{ book.name }}</div>
+                            <div class="item-author">{{ book.author }}</div>
                             <input type="hidden" class="rating" data-fractions="2"/>
                         </div>
                     </div>
@@ -30,4 +42,5 @@
 {% endblock contents %}
 
 {% block js_bottom %}
+  <script src="{% static 'js/main/search.js' %}"></script>
 {% endblock js_bottom %}

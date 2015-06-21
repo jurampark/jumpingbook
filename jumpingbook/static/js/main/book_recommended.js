@@ -10,7 +10,22 @@ $.ajaxSetup({
     }
 });
 
+var loadingDiv;
+var alertDiv;
+
 $(document).ready(function () {
+
+    loadingDiv = $("#loadingDiv");
+    alertDiv = $("#alert-container");
+    loadingDiv.hide();
+
+    $(".star-rating-container").fadeTo(0, 0);
+    $(".book-item").mouseover(function(){
+      //var current_item =
+        $(this).find('div.star-rating-container').fadeTo(0, 0.8);
+    }).mouseout(function(){
+        $(this).find('div.star-rating-container').fadeTo(0, 0);
+    });
 
     $('input.rating').rating();
     $('input.rating').on('change', function () {
@@ -23,13 +38,25 @@ $(document).ready(function () {
                 "rating": $(this).val()
             },
             success: function () {
+              alertDiv.show();
+              setTimeout(function() {
+                  alertDiv.hide();
+              }, 2000);
                 current_item.remove();
             },
             error: function (xhr, type, exception) {
                 alert("ajax error response type " + type);
+            },
+            beforeSend: function () {
+                loadingDiv.show();
+            },
+            complete: function () {
+                loadingDiv.hide();
             }
         });
-    });
+    })
+});
+
 
     //$.ajax({
     //    type: 'POST',
@@ -74,5 +101,3 @@ $(document).ready(function () {
     //        alert("ajax error response type1 " + type);
     //    }
     //});
-
-});

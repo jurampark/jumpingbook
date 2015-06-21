@@ -66,6 +66,16 @@ function refreshList() {
                     }
                 })
             })
+
+
+                $(".star-rating-container").fadeTo(0, 0);
+                $(".book-item").mouseover(function(){
+                  //var current_item =
+                    $(this).find('div.star-rating-container').fadeTo(0, 0.8);
+                }).mouseout(function(){
+                    $(this).find('div.star-rating-container').fadeTo(0, 0);
+                });
+
         },
         error: function (xhr, type, exception) {
             alert("ajax communication error" + type);
@@ -95,4 +105,5 @@ $(document).ready(function () {
     });
 
     refreshList();
+
 });
