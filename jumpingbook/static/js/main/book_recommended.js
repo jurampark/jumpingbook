@@ -76,7 +76,40 @@ $(document).ready(function () {
             setTimeout(function() {
                 $("#alert-wish-container").hide();
             }, 2000);
-              current_item.remove();
+          },
+          error: function (xhr, type, exception) {
+              alert("ajax error response type " + type);
+          },
+          beforeSend: function () {
+              loadingDiv.show();
+          },
+          complete: function () {
+              loadingDiv.hide();
+          }
+      });
+    })
+
+
+    $(".btn-black").mouseover(function(){
+      //var current_item =
+        $(this).css("color", "red");
+    }).mouseout(function(){
+        $(this).css("color", "black");
+    });
+    $(".btn-black").on('click', function(){
+      var current_item = $(this).parent().parent().parent();
+      $.ajax({
+          type: 'POST',
+          url: urlForAddBlackList,
+          data: {
+              "item-id": current_item.attr('item-id'),
+          },
+          success: function () {
+            $("#alert-black-container").show();
+            setTimeout(function() {
+                $("#alert-black-container").hide();
+            }, 2000);
+            current_item.remove();
           },
           error: function (xhr, type, exception) {
               alert("ajax error response type " + type);
@@ -90,38 +123,6 @@ $(document).ready(function () {
       });
     });
 
-    $(".btn-black").mouseover(function(){
-      //var current_item =
-        $(this).css("color", "red");
-    }).mouseout(function(){
-        $(this).css("color", "black");
-    });
-    $(".btn-wish").on('click', function(){
-      var current_item = $(this).parent().parent().parent();
-      $.ajax({
-          type: 'POST',
-          url: urlForAddBlackList,
-          data: {
-              "item-id": current_item.attr('item-id'),
-          },
-          success: function () {
-            $("#alert-black-container").show();
-            setTimeout(function() {
-                $("#alert-black-container").hide();
-            }, 2000);
-              current_item.remove();
-          },
-          error: function (xhr, type, exception) {
-              alert("ajax error response type " + type);
-          },
-          beforeSend: function () {
-              loadingDiv.show();
-          },
-          complete: function () {
-              loadingDiv.hide();
-          }
-      });
-    });
 });
 
 
