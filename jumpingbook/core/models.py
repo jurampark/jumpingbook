@@ -11,7 +11,7 @@ class TimeStampedModel(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    link_class = models.CharField(max_length=10) # for kyobo books scrapping
+    link_class = models.CharField(max_length=10, null=True) # for kyobo books scrapping
 
     def __unicode__(self):
         return '%s' % self.name
