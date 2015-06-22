@@ -76,6 +76,7 @@ $(document).ready(function () {
             setTimeout(function() {
                 $("#alert-wish-container").hide();
             }, 2000);
+            current_item.remove();
           },
           error: function (xhr, type, exception) {
               alert("ajax error response type " + type);
