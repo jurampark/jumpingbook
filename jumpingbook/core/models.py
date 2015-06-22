@@ -25,7 +25,7 @@ class SubCategory(models.Model):
 class Book(models.Model):
     name = models.CharField(max_length=100)
     image_url = models.URLField()
-    category = models.ForeignKey('core.SubCategory')
+    category = models.ForeignKey('core.Category')
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=100)
     published_date = models.DateField(default=datetime.date.today)
