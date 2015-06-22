@@ -11,14 +11,21 @@ class TimeStampedModel(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    link_class = models.CharField(max_length=10) # for kyobo books scrapping
 
     def __unicode__(self):
         return '%s' % self.name
 
+class SubCategory(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    link_class = models.CharField(max_length=10) # for kyobo books scrapping
+    category = models.ForeignKey('core.Category')
+
+
 class Book(models.Model):
     name = models.CharField(max_length=100)
     image_url = models.URLField()
-    category = models.ForeignKey('core.Category')
+    category = models.ForeignKey('core.SubCategory')
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=100)
     published_date = models.DateField(default=datetime.date.today)
