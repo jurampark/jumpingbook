@@ -61,25 +61,21 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = (
     # The Django sites framework is required
     'django.contrib.sites',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-
-    'djangobower',
-    'bootstrap3',
-
-    'django_extensions',
-
-    'djcelery',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'djangobower',
+    'bootstrap3',
+    'django_extensions',
+    'djcelery',
     'core',
     'feasible',
     'recommend',
