@@ -59,9 +59,35 @@ def _start_scrapping():
             cursor.execute(query_string)
             subcategory_id = cursor.fetchone()[0]
 
-            book_list_url = "http://m.kyobobook.com/search/byCategory/KOR/%s/SALE_QTY?orderClick=mC8&size=20&offset=1&tabId=%EB%8F%84%EC%84%9C_%EC%86%8C%EC%84%A4&linkClass=%s" \
-            %(subcategory['linkClass'], subcategory['linkClass'])
+            while True:
 
+                offset = "1"
+                print "offset : "+ offset
+                book_list_url = "http://m.kyobobook.com/search/byCategory/KOR/%s/SALE_QTY?orderClick=mC8&size=20&offset=%s&tabId=&linkClass=%s" \
+                %(subcategory['linkClass'], offset, subcategory['linkClass'])
+
+                r = requests.get(book_list_url)
+                book_list_json = r.json()
+                offset = str(book_list_json['nextBeginRowNumber'])
+                for item in book_list_json['items']:
+                    title = item['title']
+                    image_url = item['imageUrl']
+                    image_url = image_url.replace("medium","xlarge").replace("/m","/x")
+                    author = item['authorName']
+                    publisher = item['publisherName']
+                    barcode = item['barcode']
+                    # published_date = item['publishingDay']
+                    published_date = "20150622"
+
+                    query_string = "insert into core_book(title, barcode, image_url, author, publisher, published_date, category_id) select '%s', '%s', ''%s', '%s', '%s', '%s', '%s' where not exists ( select id from core_book where title = '%s' and author = '%s' );" \
+                               % (title, barcode, image_url, author, publisher, published_date, category_id, title, author)
+
+
+                    print query_string
+                    cursor.execute(query_string)
+
+                if book_list_json['more'] == False:
+                    break
 
 
     conn.commit()

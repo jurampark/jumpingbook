@@ -41,7 +41,7 @@ class RatedBookListView(CsrfExemptMixin, LoginRequiredMixin, View):
             rated_books.append({
                 "id": book.id,
                 "image_url": book.image_url,
-                "name": book.name,
+                "title": book.title,
                 "author": book.author,
                 "publisher": book.publisher,
                 "published_date": book.published_date,
