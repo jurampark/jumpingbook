@@ -14,9 +14,9 @@ class BookListView(CsrfExemptMixin, LoginRequiredMixin, View):
         category_id = request.POST.get('category-id','');
         already_rating_book_list = request.user.userbookrating_set.values_list('book_id', flat=True)
         if ( len(category_id) == 0 ):
-            books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "name", "image_url", "category__name", "author", "publisher", "published_date")
+            books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "title", "image_url", "category__name", "author", "publisher", "published_date")
         else:
-            books = Book.objects.filter(category__id=category_id).exclude(id__in=already_rating_book_list).values("id", "name", "image_url", "category__name", "author", "publisher", "published_date")
+            books = Book.objects.filter(category__id=category_id).exclude(id__in=already_rating_book_list).values("id", "title", "image_url", "category__name", "author", "publisher", "published_date")
         return HttpResponse(json.dumps(list(books), cls=DjangoJSONEncoder), content_type="application/json")
 
 class RatingBookView(CsrfExemptMixin, View):

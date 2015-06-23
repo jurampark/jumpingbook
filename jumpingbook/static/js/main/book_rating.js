@@ -31,7 +31,7 @@ function refreshList() {
                                 <img src=\"" + item['image_url'] + "\" /> \
                                 </div> \
                                 <div class=\"star-rating-container\"> \
-                                  <div class=\"item-title\">" + item['name'] + "</div> \
+                                  <div class=\"item-title\">" + item['title'] + "</div> \
                                   <div class=\"item-author\">" + item['author'] + "</div> \
                                   <input type=\"hidden\" class=\"rating\" data-fractions=\"2\"/> \
                                 </div> \

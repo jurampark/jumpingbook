@@ -14,8 +14,8 @@ categorys = [{
     'baseLinkClass': '01',
     'items':[
         {
-            'name': u'소설문고/시리즈',
-            'linkClass': '0127'
+            'name': u'청소년소설',
+            'linkClass': '0118'
         }
     ]
 }]
@@ -45,6 +45,7 @@ def _start_scrapping():
         % (category['baseLinkClassName'], category['baseLinkClass'], category['baseLinkClassName'])
 
         cursor.execute(query_string)
+        # conn.commit()
 
         query_string = "SELECT id FROM core_category WHERE name = '%s'" % (category['baseLinkClassName'])
         cursor.execute(query_string)
@@ -53,22 +54,26 @@ def _start_scrapping():
         for subcategory in category['items']:
             query_string = "insert into core_subcategory(name, link_class, category_id) select '%s', '%s', '%s' where not exists ( select id from core_subcategory where name='%s' );" \
                            % (subcategory['name'], subcategory['linkClass'], category_id, subcategory['name'])
+
             cursor.execute(query_string)
+            # conn.commit()
 
             query_string = "SELECT id FROM core_subcategory WHERE name = '%s'" % (subcategory['name'])
             cursor.execute(query_string)
             subcategory_id = cursor.fetchone()[0]
+            offset = "1"
 
             while True:
 
-                offset = "1"
                 print "offset : "+ offset
-                book_list_url = "http://m.kyobobook.com/search/byCategory/KOR/%s/SALE_QTY?orderClick=mC8&size=20&offset=%s&tabId=&linkClass=%s" \
+                book_list_url = "http://m.kyobobook.com/search/byCategory/KOR/%s/SALE_QTY?orderClick=mC8&size=10&offset=%s&tabId=&linkClass=%s" \
                 %(subcategory['linkClass'], offset, subcategory['linkClass'])
+
+                print book_list_url
 
                 r = requests.get(book_list_url)
                 book_list_json = r.json()
-                offset = str(book_list_json['nextBeginRowNumber'])
+                offset = str(int(offset) + 1)
                 for item in book_list_json['items']:
                     title = item['title']
                     image_url = item['imageUrl']
@@ -79,11 +84,11 @@ def _start_scrapping():
                     # published_date = item['publishingDay']
                     published_date = "20150622"
 
-                    query_string = "insert into core_book(title, barcode, image_url, author, publisher, published_date, category_id) select '%s', '%s', ''%s', '%s', '%s', '%s', '%s' where not exists ( select id from core_book where title = '%s' and author = '%s' );" \
-                               % (title, barcode, image_url, author, publisher, published_date, category_id, title, author)
+                    query_string = "insert into core_book(title, barcode, image_url, author, publisher, published_date, category_id) select '%s', '%s', '%s', '%s', '%s', '%s', '%s' where not exists ( select id from core_book where title = '%s' and author = '%s' );" \
+                               % (title, barcode, image_url, author, publisher, published_date, subcategory_id, title, author)
 
 
-                    print query_string
+                    # print query_string
                     cursor.execute(query_string)
 
                 if book_list_json['more'] == False:

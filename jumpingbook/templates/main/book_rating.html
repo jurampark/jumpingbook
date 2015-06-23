@@ -29,8 +29,8 @@
                 <a href="#" class="list-group-item category-list-item active" category-id="">
                     모든 책
                 </a>
-                {% for category in categories %}
-                    <a href="#" class="list-group-item category-list-item" category-id="{{ category.id }}">{{ category.name }}</a>
+                {% for subcategory in subcategories %}
+                    <a href="#" class="list-group-item category-list-item" category-id="{{ subcategory.id }}">{{ subcategory.name }}</a>
                 {% endfor %}
             </div>
         </div>
