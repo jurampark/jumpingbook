@@ -16,7 +16,7 @@ var alertDiv;
 $(document).ready(function () {
 
     loadingDiv = $("#loadingDiv");
-    alertDiv = $("#alert-container");
+    alertDiv = $("#rating-success-alert-container");
 
     loadingDiv.hide();
 

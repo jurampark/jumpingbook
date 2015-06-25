@@ -31,8 +31,6 @@ STATICFILES_DIRS = (
     root("static"),
 )
 
-BOWER_COMPONENTS_ROOT = root("static/components")
-
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -185,9 +183,13 @@ SOCIALACCOUNT_PROVIDERS = \
 
 
 # Bower
+
+BOWER_COMPONENTS_ROOT = root("static/components")
+
 BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap',
+    'waypoints',
 )
 
 # CELERY SETTINGS
