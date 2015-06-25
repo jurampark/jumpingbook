@@ -41,6 +41,10 @@ def _update_virtualenv():
         run('virtualenv --python=python2.7 %s' % (remote_virtualenv_directory))
     sudo('%s/bin/pip install -r %s/requirements.txt' % (remote_virtualenv_directory, remote_source_directory), user="ec2-user")
 
+def _update_bower_package():
+    with cd(remote_source_directory):
+        run('%s/bin/python manage.py bower_install' % remote_virtualenv_directory )
+
 def _update_static_files():
     with cd(remote_source_directory):
         run('%s/bin/python manage.py collectstatic --noinput' % remote_virtualenv_directory )
@@ -54,5 +58,6 @@ def deploy():
     _create_directory_if_necessary()
     _get_latest_source()
     _update_virtualenv()
+    _update_bower_package()
     _update_static_files()
     _update_database()
