@@ -42,7 +42,7 @@ $(document).ready(function () {
                                             <img src=\"" + item['image_url'] + "\" /> \
                                         </div> \
                                         <div class=\"star-rating-container\" score=\"" + item['score'] + "\"> \
-                                        <div class=\"item-title\">" + item['name'] + "</div> \
+                                        <div class=\"item-title\">" + item['title'] + "</div> \
                                         <div class=\"item-author\">" + item['author'] + "</div> \
                                             <input type=\"hidden\" class=\"rating\" readonly=\"readonly\" data-fractions=\"2\"/> \
                                             <button type=\"button\" class=\"cancel btn btn-default btn-sm\">평가 취소</button> \

@@ -30,7 +30,7 @@ $( document ).ready(function() {
     //                                       <img src=\"http://youth.sangju.go.kr/fileUpload/contentsboard/book_00406.jpg\" /> \
     //                                   </div> \
     //                                   <div class=\"star-rating-container\"> \
-    //                                       <div class=\"item-title\">" + item['name'] + "</div> \
+    //                                       <div class=\"item-title\">" + item['title'] + "</div> \
     //                                       <div class=\"item-author\">" + item['author'] + "</div> \
     //                                       <input type=\"hidden\" class=\"rating\" data-fractions=\"2\"/> \
     //                                   </div> \
@@ -82,7 +82,7 @@ $( document ).ready(function() {
                                             <img src=\"http://youth.sangju.go.kr/fileUpload/contentsboard/book_00406.jpg\" /> \
                                         </div> \
                                         <div class=\"star-rating-container\"> \
-                                            <div class=\"item-title\">" + item['name'] + "</div> \
+                                            <div class=\"item-title\">" + item['title'] + "</div> \
                                             <div class=\"item-author\">" + item['author'] + "</div> \
                                             <input type=\"hidden\" class=\"rating\" data-fractions=\"2\"/> \
                                         </div> \

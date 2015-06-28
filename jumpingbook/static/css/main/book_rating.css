@@ -45,3 +45,11 @@
     position: absolute;
     bottom: 0;
 }
+
+.stuck {
+    position: fixed;
+    top: 0;
+}
+.book-item-container {
+    display: inline-block;
+}

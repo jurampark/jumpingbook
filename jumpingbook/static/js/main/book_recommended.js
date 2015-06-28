@@ -16,7 +16,7 @@ var alertDiv;
 $(document).ready(function () {
 
     loadingDiv = $("#loadingDiv");
-    alertDiv = $("#alert-container");
+    alertDiv = $("#rating-success-alert-container");
     loadingDiv.hide();
 
     $(".star-rating-container").fadeTo(0, 0);
@@ -140,7 +140,7 @@ $(document).ready(function () {
     //    <img src=\"http://youth.sangju.go.kr/fileUpload/contentsboard/book_00406.jpg\" /> \
     //    </div> \
     //    <div class=\"star-rating-container\"> \
-    //    <div class=\"item-title\">" + item['name'] + "</div> \
+    //    <div class=\"item-title\">" + item['title'] + "</div> \
     //    <div class=\"item-author\">" + item['author'] + "</div> \
     //    <input type=\"hidden\" class=\"rating\" data-fractions=\"2\"/> \
     //    </div> \

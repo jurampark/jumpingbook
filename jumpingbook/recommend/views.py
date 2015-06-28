@@ -1,5 +1,6 @@
 import json
 from braces.views import CsrfExemptMixin, LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.http.response import HttpResponseBadRequest
@@ -12,12 +13,28 @@ from users.models import UserBookRating
 class BookListView(CsrfExemptMixin, LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         category_id = request.POST.get('category-id','');
+        page = request.POST.get('page', 1)
         already_rating_book_list = request.user.userbookrating_set.values_list('book_id', flat=True)
         if ( len(category_id) == 0 ):
-            books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "name", "image_url", "category__name", "author", "publisher", "published_date")
+            books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "title", "image_url", "category__name", "author", "publisher", "published_date")
         else:
-            books = Book.objects.filter(category__id=category_id).exclude(id__in=already_rating_book_list).values("id", "name", "image_url", "category__name", "author", "publisher", "published_date")
-        return HttpResponse(json.dumps(list(books), cls=DjangoJSONEncoder), content_type="application/json")
+            books = Book.objects.filter(category__id=category_id).exclude(id__in=already_rating_book_list).values("id", "title", "image_url", "category__name", "author", "publisher", "published_date")
+
+        # if ( len(category_id) == 0 ):
+        #     books = Book.objects.exclude(id__in=already_rating_book_list).all()
+        # else:
+        #     books = Book.objects.filter(category__id=category_id).exclude(id__in=already_rating_book_list).all()
+
+
+
+        paginator = Paginator(books, 12)
+        current_page = paginator.page(page)
+
+        data = {
+            'next_page_num': current_page.next_page_number() if current_page.has_next() else -1,
+            'items': list(current_page)
+        }
+        return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type="application/json")
 
 class RatingBookView(CsrfExemptMixin, View):
     def post(self, request, *args, **kwargs):
@@ -41,7 +58,7 @@ class RatedBookListView(CsrfExemptMixin, LoginRequiredMixin, View):
             rated_books.append({
                 "id": book.id,
                 "image_url": book.image_url,
-                "name": book.name,
+                "title": book.title,
                 "author": book.author,
                 "publisher": book.publisher,
                 "published_date": book.published_date,
