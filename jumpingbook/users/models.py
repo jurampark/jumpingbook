@@ -6,7 +6,7 @@ from core.models import TimeStampedModel
 class UserBookRating(TimeStampedModel):
     user = models.ForeignKey(User)
     book = models.ForeignKey('core.Book')
-    score = models.IntegerField(default=5, null=False)
+    score = models.IntegerField(default=5, null=False) # 1~10
 
     class Meta:
         unique_together=(("user","book"),)
