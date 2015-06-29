@@ -30,7 +30,7 @@ def _start_scrapping():
 
     update_cursor = conn.cursor()
 
-    cursor.execute("SELECT id, image_url FROM core_book;")
+    cursor.execute("SELECT id, image_url FROM core_book where id>=247224;")
     for record in cursor:
         id = str(record[0])
         image_url = record[1]

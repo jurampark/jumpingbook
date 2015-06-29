@@ -60,7 +60,7 @@ class BookRecommendedView(LoginRequiredMixin, View):
             neighbors = sorted( neighbors.items(), key=operator.itemgetter(1), reverse=True)
             recommend_books = {}
             for neighbor in neighbors[:5]:
-                neighbor_ratings = UserBookRating.objects.filter(user__id=neighbor[0]).order_by('-score').all()
+                neighbor_ratings = UserBookRating.objects.filter(user__id=neighbor[0]).filter(score__gte=7).all()
                 for neighbor_rating in neighbor_ratings:
                     if recommend_books.has_key(neighbor_rating.book_id):
                         recommend_books[neighbor_rating.book_id] = recommend_books[neighbor_rating.book_id] + 1
