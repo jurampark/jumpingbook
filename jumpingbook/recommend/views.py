@@ -18,7 +18,7 @@ class BookListView(CsrfExemptMixin, LoginRequiredMixin, View):
         if ( len(category_id) == 0 ):
             books = Book.objects.exclude(id__in=already_rating_book_list).values("id", "title", "image_url", "category__name", "author", "publisher", "published_date")
         else:
-            books = Book.objects.filter(category__id=category_id).exclude(id__in=already_rating_book_list).values("id", "title", "image_url", "category__name", "author", "publisher", "published_date")
+            books = Book.objects.filter(category__category__id=category_id).exclude(id__in=already_rating_book_list).values("id", "title", "image_url", "category__name", "author", "publisher", "published_date")
 
         # if ( len(category_id) == 0 ):
         #     books = Book.objects.exclude(id__in=already_rating_book_list).all()

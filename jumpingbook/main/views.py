@@ -5,6 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import TemplateView, View
+import operator
 from core.models import Book, Category, SubCategory
 from users.models import UserBookRating
 
@@ -29,7 +30,7 @@ class BookRatingView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(BookRatingView, self).get_context_data(**kwargs)
-        context['subcategories'] = SubCategory.objects.all()
+        context['categories'] = Category.objects.all()
         return context
 
 
@@ -40,27 +41,42 @@ class BookRecommendedView(LoginRequiredMixin, View):
 
         rated_books_count = request.user.userbookrating_set.count()
 
-        book_list = []
-        if rated_books_count >= 10:
-            books = Book.objects.prefetch_related(Prefetch('userbookrating_set')).all()
-            for book in books[:10]:
-                score = book.userbookrating_set.aggregate(Sum('score'))['score__sum']
-                if score is None:
-                    score = 0
 
-                book_item = {
-                    'book': book,
-                    'score': score
-                }
+        books = []
 
-                book_list.append(book_item)
+        if rated_books_count >= 20:
+            ratings = request.user.userbookrating_set.all()
+            neighbors = {}
+            for rating in ratings:
+                book = rating.book
+                score = rating.score
+                other_ratings = UserBookRating.objects.filter(book=book).filter(score__gte=score-3).filter(score__lte=score+3).exclude(user=request.user).all()
+                for other_rating in other_ratings:
+                    if neighbors.has_key(other_rating.user_id):
+                        neighbors[other_rating.user_id] = neighbors[other_rating.user_id]+1
+                    else:
+                        neighbors[other_rating.user_id] = 1
 
-            book_list = sorted(book_list, key=lambda book: book['score'], reverse=True)
+            neighbors = sorted( neighbors.items(), key=operator.itemgetter(1), reverse=True)
+            recommend_books = {}
+            for neighbor in neighbors[:5]:
+                neighbor_ratings = UserBookRating.objects.filter(user__id=neighbor[0]).filter(score__gte=7).all()
+                for neighbor_rating in neighbor_ratings:
+                    if recommend_books.has_key(neighbor_rating.book_id):
+                        recommend_books[neighbor_rating.book_id] = recommend_books[neighbor_rating.book_id] + 1
+                    else:
+                        recommend_books[neighbor_rating.book_id] = 1
+
+            recommend_books = sorted( recommend_books.items(), key=operator.itemgetter(1), reverse=True)
+
+
+            for recommend_books in recommend_books[:12]:
+                books.append( Book.objects.get(id=recommend_books[0]) )
 
         return render(request,
                       self.template_name,
                       {'rated_books_count':rated_books_count,
-                       'books': book_list[:10]
+                       'books': books
                        } )
 
     def post(self, request, *args, **kwargs):
@@ -72,6 +88,5 @@ class BookSearchView(TemplateView):
     def get_context_data(self, **kwargs):
         query = self.request.GET.get('query','')
         context = super(BookSearchView, self).get_context_data(**kwargs)
-        context['books'] = Book.objects.filter(name__contains=query).all()
-        print context['books']
+        context['books'] = Book.objects.filter(title__contains=query).all()[:12]
         return context
