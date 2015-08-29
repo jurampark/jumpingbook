@@ -142,7 +142,7 @@ DATABASES = {
         'NAME': 'jumpingbook',
         'USER': 'root',
         'PASSWORD': 'parkjuram90',
-        'HOST': 'jumpingbookdbinstance.chxobddaq8ce.ap-northeast-1.rds.amazonaws.com',
+        'HOST': 'jumpingbook.chxobddaq8ce.ap-northeast-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
