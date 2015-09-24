@@ -1,13 +1,17 @@
+import json
 from braces.views import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Sum, Prefetch
+from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import TemplateView, View
 import operator
 from core.models import Book, Category, SubCategory
-from users.models import UserBookRating
+from users.models import UserBookRating, UserFriend
 
 
 class LoginView(TemplateView):
@@ -90,3 +94,45 @@ class BookSearchView(TemplateView):
         context = super(BookSearchView, self).get_context_data(**kwargs)
         context['books'] = Book.objects.filter(title__contains=query).all()[:12]
         return context
+
+# class AddFriendView(TemplateView):
+#
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(AddFriendView, self).get_context_data(**kwargs)
+#         context['users'] = User.objects.exclude(username=self.request.user.username).all()
+#
+#         # print dir(context['users'][0])
+#
+#         return context
+
+# class ScrapKyoboBookView(View):
+#
+#     template_name = "supervisor/scrapkyobobook.html"
+#
+#     def get(self, request, *args, **kwargs):
+#
+#         return render(request,
+#                       self.template_name,
+#                       {} )
+
+class AddFriendView(LoginRequiredMixin, View):
+
+    template_name = "main/add_friend.html"
+
+    def get(self, request, *args, **kwargs):
+        users = User.objects.exclude(username=self.request.user.username).values('id','username')
+
+        for user in users:
+            user['isFriend'] = UserFriend.objects.filter(user=self.request.user, friend_id=user['id']).exists()
+
+        print users
+
+        return render(request, self.template_name, {
+            'users': users
+        } )
+
+    def post(self, request, *args, **kwargs):
+        UserFriend.objects.create( user = request.user, friend_id = request.POST.get('user-id'))
+
+        return HttpResponse(json.dumps({}, cls=DjangoJSONEncoder), content_type="application/json")

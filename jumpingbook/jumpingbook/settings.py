@@ -185,11 +185,11 @@ SOCIALACCOUNT_PROVIDERS = \
 # Bower
 
 BOWER_COMPONENTS_ROOT = root("static/components")
-
 BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap',
     'waypoints',
+    'font-awesome',
 )
 
 # CELERY SETTINGS

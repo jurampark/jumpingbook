@@ -11,6 +11,12 @@ class UserBookRating(TimeStampedModel):
     class Meta:
         unique_together=(("user","book"),)
 
+class UserFriend(TimeStampedModel):
+    user = models.ForeignKey(User, null=False, related_name='creator')
+    friend = models.ForeignKey(User, null=True, related_name='assignee')
+
+    class Meta:
+        unique_together=(("user","friend"),)
 
 class UserBookBlackList(TimeStampedModel):
     user = models.ForeignKey(User)
