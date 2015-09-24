@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
+    <script>
+      var urlForBookRating = "{% url 'recommend:book_rating' %}";
+      var urlForAddFriend = "{% url 'main:add_friend' %}";
+    </script>
+{% endblock head %}
+
+{% block contents %}
+    <div class="row">
+        <div class="list-group">
+            {% for user in users %}
+                <button type="button" class="list-group-item friend-list" user-id="{{ user.id }}">
+                    {% if user.isFriend %}
+                        <span class="badge">friend</span>
+                    {% endif %}
+                    {{ user.username }}
+                </button>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock contents %}
+
+{% block js_bottom %}
+  <script src="{% static 'js/main/add_friend.js' %}"></script>
+{% endblock js_bottom %}
