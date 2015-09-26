@@ -5,6 +5,7 @@
     <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
     <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
+
     <script>
         var urlForBookList = "{% url 'recommend:book_list' %}";
         var urlForBookRating = "{% url 'recommend:book_rating' %}";
@@ -18,7 +19,7 @@
         </div>
         <div id="rating-success-alert-container" style="display: none;">
             <div class="alert alert-success" role="alert">
-                <strong> - df당신의 소중한 평가가 저장되었습니다 - </strong>
+                <strong> - 당신의 소중한 평가가 저장되었습니다 - </strong>
             </div>
         </div>
     </div>
@@ -34,7 +35,9 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-10"><div class="book-item-container"></div></div>
+        <div class="col-md-10">
+            <div class="book-item-container"></div>
+        </div>
     </div>
 {% endblock contents %}
 

@@ -1,0 +1,12 @@
+.container {
+    height: 100%;
+}
+
+.login-container {
+    margin-top: 15%;
+}
+
+.btn-login {
+    margin : 10px;
+    width : 250px
+}

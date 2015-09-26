@@ -1,0 +1,15 @@
+#phrases
+{
+    position: absolute;
+    top:50%;
+    height:100px;
+    margin-top:-50px;
+    text-align:center;
+    vertical-align:middle;
+
+}
+
+.container
+{
+    margin-left:0px;
+}

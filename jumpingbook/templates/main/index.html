@@ -1,20 +1,23 @@
 {% extends "main/base.html" %}
+{% load staticfiles %}
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'css/main/index.css' %}">
+
     <style>
     </style>
 {% endblock head %}
 
 
 {% block contents %}
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="alert alert-success" role="alert" style="text-align:center; font-size:17px">
+{#    <div class="row">#}
+        <div id="phrases" class="col-md-6 col-md-offset-3">
+            <div class="index-alert alert alert-success" role="alert" style="text-align:center; font-size:17px">
                 현재 당신이 평가할 수 있는 책 수는 <strong>{{ book_count }}</strong> 권 입니다.
             </div>
-            <div class="alert alert-info" role="alert" style="text-align:center; font-size:17px">
-                지금까지 총 <strong>{{ rating_count }}</strong> 건의 평가가 이루어 졌습니다. 감사합니다
+            <div class="index-alert alert alert-info" role="alert" style="text-align:center; font-size:17px">
+                지금까지 총 <strong>{{ rating_count }}</strong> 건의 평가가 이루어 졌습니다. 감사합니다.
             </div>
         </div>
-    </div>
+{#    </div>#}
 {% endblock contents %}

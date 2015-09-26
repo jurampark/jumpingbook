@@ -10,6 +10,9 @@
 <head>
     <meta charset="utf-8"/>
 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
 
@@ -25,7 +28,7 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-
+    <link rel="stylesheet" type="text/css" href="/static/css/main/base.css">
 
     {% block head %}
     {% endblock head %}
@@ -36,7 +39,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -68,7 +71,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li {% if request.path == url_main_mypage %}class="active"{% endif %}><a href="{% url 'main:mypage' %}">{{ request.user.username }}님의 페이지</a></li>
               <li><a href="{% url 'account_logout' %}">로그아웃</a></li>
-            <ul>
+            </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
