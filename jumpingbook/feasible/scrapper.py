@@ -799,7 +799,7 @@ def _start_scrapping():
                     title = item['title']
                     title = title.replace("'", "''")
                     image_url = item['imageUrl']
-                    image_url = image_url.replace("medium","xlarge").replace("/m","/x")
+                    # image_url = image_url.replace("medium","xlarge").replace("/m","/x")
                     author = item['authorName']
                     author = author.replace("'", "''")
                     publisher = item['publisherName']

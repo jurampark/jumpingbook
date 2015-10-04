@@ -7,41 +7,20 @@
 {% url 'main:book_recommended' as url_main_book_recommended %}
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
-
-<<<<<<< HEAD
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-
-
-    <!-- 합쳐지고 최소화된 최신 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-    <!-- 부가적인 테마 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-    <!-- font awesome -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" type="text/css" href="/static/css/main/base.css">
-=======
     <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap/dist/css/bootstrap-theme.min.css' %}">
     <link rel="stylesheet" href="{% static 'components/bower_components/font-awesome/css/font-awesome.min.css' %}">
 
-    <script src="{% static 'components/bower_components/jquery/dist/jquery.min.js' %}" />
-    <script src="{% static 'components/bower_components/bootstrap/dist/js/bootstrap.min.js' %}" />
->>>>>>> 7f86f5086c75dbdfd090be73a10570ed4520f7b4
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/base.css' %}">
 
-    {% block head %}
-    {% endblock head %}
+    {% block cssfiles %}
+    {% endblock cssfiles %}
 
     <script>
         var csrftoken = "{{ csrf_token }}";
@@ -89,12 +68,18 @@
     <!-- /.container-fluid -->
 </nav>
 
+<div class="bg-container">
+    {% block bgs %} {% endblock %}
+</div>
+
 <div class="container">
     {% block contents %}{% endblock contents %}
 </div>
 
-{% block js_bottom %}
-{% endblock js_bottom %}
+<script src="{% static 'components/bower_components/jquery/dist/jquery.min.js' %}" ></script>
+<script src="{% static 'components/bower_components/bootstrap/dist/js/bootstrap.min.js' %}" ></script>
+{% block jsfiles %}
+{% endblock jsfiles %}
 
 </body>
 </html>

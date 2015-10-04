@@ -1,14 +1,15 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 
-{% block head %}
+{% block cssfiles %}
+
     <link rel="stylesheet" href="{% static 'css/main/index.css' %}">
 
-    <style>
-    </style>
-{% endblock head %}
+{% endblock cssfiles %}
 
-
+{% block bgs %}
+    <img class='bg' src="{% static 'css/main/images/main_background.jpg' %}" />
+{% endblock bgs %}
 {% block contents %}
 {#    <div class="row">#}
         <div id="phrases" class="col-md-6 col-md-offset-3">

@@ -171,6 +171,8 @@ USE_TZ = True
 SITE_ID = 1
 
 # LOGIN_URL = '/login'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
 # Oauth
 SOCIALACCOUNT_PROVIDERS = \
     {'facebook':
@@ -182,6 +184,14 @@ SOCIALACCOUNT_PROVIDERS = \
         'VERSION': 'v2.3'}}
 
 
+# sending email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'jumpingbook.help@gmail.com'
+EMAIL_HOST_PASSWORD = 'parkjuram90'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 # Bower
 
 BOWER_COMPONENTS_ROOT = root("static/components")
@@ -190,6 +200,7 @@ BOWER_INSTALLED_APPS = (
     'bootstrap',
     'waypoints',
     'font-awesome',
+    'bootstrap-star-rating',
 )
 
 # CELERY SETTINGS

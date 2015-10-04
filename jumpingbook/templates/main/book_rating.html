@@ -1,16 +1,10 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 
-{% block head %}
-    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
+{% block cssfiles %}
+    <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap-star-rating/css/star-rating.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
-
-    <script>
-        var urlForBookList = "{% url 'recommend:book_list' %}";
-        var urlForBookRating = "{% url 'recommend:book_rating' %}";
-    </script>
-{% endblock head %}
+{% endblock cssfiles %}
 
 {% block contents %}
     <div id="center" style="position:fixed;top:50%;left:50%;z-index:5">
@@ -28,10 +22,12 @@
         <div class="col-md-2">
             <div class="list-group category-list">
                 <a href="#" class="list-group-item category-list-item active" category-id="">
-                    모든 책
+                    <span class="text" hre="#">신간<span class="highlight"></span></span>
                 </a>
                 {% for category in categories %}
-                    <a href="#" class="list-group-item category-list-item" category-id="{{ category.id }}">{{ category.name }}</a>
+                    <a href="#" class="list-group-item category-list-item" category-id="{{ category.id }}">
+                        <span class="text" hre="#">{{ category.name }}</span>
+                    </a>
                 {% endfor %}
             </div>
         </div>
@@ -41,8 +37,13 @@
     </div>
 {% endblock contents %}
 
-{% block js_bottom %}
+{% block jsfiles %}
+    <script src="{% static 'components/bower_components/bootstrap-star-rating/js/star-rating.min.js' %}" ></script>
+    <script src="{% static 'components/bower_components/waypoints/lib/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'components/bower_components/waypoints/lib/shortcuts/sticky.min.js' %}"></script>
     <script src="{% static 'js/main/book_rating.js' %}"></script>
-    <script src="{% static 'waypoints/lib/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'waypoints/lib/shortcuts/sticky.min.js' %}"></script>
-{% endblock js_bottom %}
+    <script>
+        var urlForBookList = "{% url 'recommend:book_list' %}";
+        var urlForBookRating = "{% url 'recommend:book_rating' %}";
+    </script>
+{% endblock jsfiles %}

@@ -138,10 +138,11 @@ $(document).ready(function () {
         e.preventDefault();
         $('html, body').animate({ scrollTop: 0 }, 'fast');
         categoryId = $(this).attr('category-id');
-
         nextPage = -1;
+        $('.category-list-item.active .highlight').remove();
         $('.category-list-item.active').removeClass('active');
         $(this).addClass('active');
+        $('.category-list-item.active .text').append('<span class="highlight"></span>');
 
         getItemList(1);
     });

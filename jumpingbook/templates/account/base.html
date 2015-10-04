@@ -1,0 +1,38 @@
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% load account %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap/dist/css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'components/bower_components/font-awesome/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/account/base.css' %}">
+
+    {% block cssfiles %}
+    {% endblock cssfiles %}
+
+</head>
+<body>
+
+<div class="container">
+    {% block content %}
+    {% endblock content %}
+</div>
+
+
+<script src="{% static 'components/bower_components/jquery/dist/jquery.min.js' %}" />
+<script src="{% static 'components/bower_components/bootstrap/dist/js/bootstrap.min.js' %}" />
+{% block jsfiles %}
+{% endblock jsfiles %}
+
+</body>
+</html>

@@ -58,3 +58,13 @@
     display: inline-block;
     margin-left: 40px;
 }
+
+html, body {
+    background-color: #e5e5e5;
+}
+
+.highlight
+{
+    width: 84%;
+    margin-left: 8%;
+}

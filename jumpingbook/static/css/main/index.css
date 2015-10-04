@@ -12,4 +12,21 @@
 .container
 {
     margin-left:0px;
+
 }
+
+.bg
+{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    opacity: 0.5;
+}
+/*body*/
+/*{*/
+    /*background: url('images/main_background.jpg') no-repeat center center fixed;*/
+    /*background-size: cover;*/
+    /*-webkit-background-size: cover;*/
+    /*opacity: 0.4;*/
+/*}*/
