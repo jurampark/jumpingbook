@@ -47,7 +47,7 @@ function onRatingLibrary( selector ) {
                 setTimeout(function () {
                     alertDiv.hide();
                 }, 2000);
-                current_item.remove();
+                current_item.fadeTo(400, 0.5);
             },
             error: function (xhr, type, exception) {
                 alert("ajax error response type2 " + type);

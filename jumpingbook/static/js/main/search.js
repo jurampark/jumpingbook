@@ -31,12 +31,12 @@ $(document).ready(function () {
 
     $('input.rating').rating();
     $('input.rating').on('change', function () {
-        var current_item = $(this).parent().parent();
+        var current_item = $(this).parent().parent().parent().parent();
         $.ajax({
             type: 'POST',
             url: urlForBookRating,
             data: {
-                "item-id": $(this).parent().parent().attr('item-id'),
+                "item-id": current_item.attr('item-id'),
                 "rating": $(this).val()
             },
             success: function () {
