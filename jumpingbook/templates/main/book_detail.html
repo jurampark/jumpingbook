@@ -1,0 +1,41 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+
+{% block cssfiles %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/main/book_detail.css' %}">
+{% endblock cssfiles %}
+
+{% block top_jsfiles %}
+{% endblock top_jsfiles %}
+
+
+
+{% block contents %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="thumbnail">
+                <img src="{{ object.image_url }}">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <h3>{{ object.title }} <span class="label label-default"></span></h3>
+            <h6><span class="label label-default">지은이</span></h6> <h5>{{ object.author }} <span class="label label-default"></span></h5>
+            <h6><span class="label label-default">출판사</span></h6><h4>{{ object.publisher }} <span class="label label-default"></span></h4>
+            <h6><span class="label label-default">출판일</span></h6><h4>{{ object.published_date }} <span class="label label-default"></span></h4>
+        </div>
+        <div class="col-md-4">
+            <div class="evaluation">
+                <h5>{{ avg_star }} <span class="label label-primary">평점</span></h5>
+                <h5>{{ evaluation_count }} <span class="label label-primary">누적평가수</span></h5>
+                <h3>{{ predict_star }} <span class="label label-success">예상 별점</span></h3>
+            </div>
+        </div>
+    </div>
+
+{% endblock contents %}
+
+{% block jsfiles %}
+    {{ block.super }}
+    <script src="{% static 'js/main/book_detail.js' %}"></script>
+{% endblock jsfiles %}

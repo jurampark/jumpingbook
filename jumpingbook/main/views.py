@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, DetailView
 import operator
 from core.models import Book, Category, SubCategory
 from users.models import UserBookRating, UserFriend
@@ -93,6 +93,17 @@ class BookSearchView(TemplateView):
         query = self.request.GET.get('query','')
         context = super(BookSearchView, self).get_context_data(**kwargs)
         context['books'] = Book.objects.filter(title__contains=query).all()[:12]
+        return context
+
+class BookDetailView(DetailView):
+
+    template_name = "main/book_detail.html"
+    model = Book
+    def get_context_data(self, **kwargs):
+        context = super(BookDetailView, self).get_context_data(**kwargs)
+        context['avg_star'] = 3.5
+        context['evaluation_count'] = 144
+        context['predict_star'] = 4.4
         return context
 
 # class AddFriendView(TemplateView):

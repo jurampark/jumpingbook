@@ -747,7 +747,7 @@ cursor = None
 def _get_db_connection():
     global conn, cursor
     #Define our connection string
-    conn_string = "host='jumpingbookdbinstance.chxobddaq8ce.ap-northeast-1.rds.amazonaws.com' dbname='jumpingbook' user='root' password='parkjuram90'"
+    conn_string = "host='jumpingbook.chxobddaq8ce.ap-northeast-1.rds.amazonaws.com' dbname='jumpingbook' user='root' password='parkjuram90'"
 
     # print the connection string we will use to connect
     print "Connecting to database\n	->%s" % (conn_string)
@@ -799,6 +799,13 @@ def _start_scrapping():
                     title = item['title']
                     title = title.replace("'", "''")
                     image_url = item['imageUrl']
+
+                    image_r = requests.head(image_url)
+                    if not( str(image_r.status_code) in ("304", "200")):
+                        print "(%s)image not exist - (%s) " % (image_r.status_code, image_url)
+                        image_url = ""
+
+
                     # image_url = image_url.replace("medium","xlarge").replace("/m","/x")
                     author = item['authorName']
                     author = author.replace("'", "''")
@@ -822,6 +829,8 @@ def _start_scrapping():
 
                 if book_list_json['more'] == False:
                     break
+
+                cursor.execute("commit;")
 
             conn.commit()
 

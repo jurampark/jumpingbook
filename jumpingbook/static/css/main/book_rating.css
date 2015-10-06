@@ -1,9 +1,16 @@
-.item-title {
+.item-title span {
     font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    font-size: 15px;
 }
 
 .item-author {
     font-weight: bold;
+    font-size: 13px;
 }
 
 .login-container {

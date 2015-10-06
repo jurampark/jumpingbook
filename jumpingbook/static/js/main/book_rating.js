@@ -83,16 +83,16 @@ function getItemList(page) {
 
             for (var index in data['items']) {
                 var item = data['items'][index];
-                var elem = "    <div class=\"book-item\" item-id=\"" + item['id'] + "\"> \
+                var elem = "    <a href=\"" + get_book_detail_url(item['id']) +  "\"> <div class=\"book-item\" item-id=\"" + item['id'] + "\"> \
                                 <div class=\"img-container\"> \
                                 <img src=\"" + item['image_url'] + "\" /> \
                                 </div> \
                                 <div class=\"star-rating-container\"> \
-                                  <div class=\"item-title\">" + item['title'] + "</div> \
+                                  <div class=\"item-title\"><span class='text'>" + item['title'] + "</span></div> \
                                   <div class=\"item-author\">" + item['author'] + "</div> \
                                   <input item-id=\"" + item['id'] + "\" type=\"number\" class=\"rating\" min=0 max=5 step=0.5 data-size=\"sm\" ></input> \
                                 </div> \
-                                </div>";
+                                </div></a>";
                 $('.book-item-container').append(elem);
             }
 

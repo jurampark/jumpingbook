@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
 {% endblock cssfiles %}
 
+{% block top_jsfiles %}
+    <script>
+
+        var urlForBookList = "{% url 'recommend:book_list' %}";
+        var urlForBookRating = "{% url 'recommend:book_rating' %}";
+
+    function get_book_detail_url( book_id ) {
+        return "{% url 'main:book_detail' pk=1987654321 %}".replace("1987654321", book_id );
+    }
+
+    </script>
+{% endblock top_jsfiles %}
+
+
+
 {% block contents %}
     <div id="center" style="position:fixed;top:50%;left:50%;z-index:5">
         <div id="loadingDiv">
@@ -39,12 +54,9 @@
 {% endblock contents %}
 
 {% block jsfiles %}
+    {{ block.super }}
     <script src="{% static 'components/bower_components/bootstrap-star-rating/js/star-rating.min.js' %}" ></script>
     <script src="{% static 'components/bower_components/waypoints/lib/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'components/bower_components/waypoints/lib/shortcuts/sticky.min.js' %}"></script>
     <script src="{% static 'js/main/book_rating.js' %}"></script>
-    <script>
-        var urlForBookList = "{% url 'recommend:book_list' %}";
-        var urlForBookRating = "{% url 'recommend:book_rating' %}";
-    </script>
 {% endblock jsfiles %}
