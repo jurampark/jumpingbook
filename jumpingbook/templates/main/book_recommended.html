@@ -1,17 +1,20 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 
-{% block head %}
-    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
+{% block cssfiles %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap-star-rating/css/star-rating.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common/book_list.css' %}">
+{% endblock cssfiles %}
+
+{% block top_jsfiles %}
     <script>
-      var urlForRecommendedBook = "{% url 'main:book_recommended' %}"
-      var urlForBookRating = "{% url 'recommend:book_rating' %}";
-      var urlForAddBlackList = "{% url 'users:add_book_to_black_list' %}";
-      var urlForAddWishList = "{% url 'users:add_book_to_wish_list' %}";
+        var urlForRecommendedBook = "{% url 'main:book_recommended' %}"
+        var urlForBookRating = "{% url 'recommend:book_rating' %}";
+        var urlForAddBlackList = "{% url 'users:add_book_to_black_list' %}";
+        var urlForAddWishList = "{% url 'users:add_book_to_wish_list' %}";
     </script>
-{% endblock head %}
+{% endblock top_jsfiles %}
 
 {% block contents %}
     {% if rated_books_count < 20 %}
@@ -38,25 +41,26 @@
     </div>
         <div class="book-item-container">
             {% for book in books %}
-                <div class="book-item" item-id="{{ book.id }}">
-                    <div class="img-container">
-                        <img src="{{ book.image_url }}" />
-                    </div>
-                    <div class="star-rating-container">
-                        <div class="item-title">{{ book.title }}</div>
-                        <div class="item-author">{{ bookf.author }}</div>
-                        <input type="hidden" class="rating" data-fractions="2"/>
-                        <div>
-                          <i class="btn-wish fa fa-heart">보고싶어요</i>
-                          <i class="btn-black fa fa-times">보기싫어요</i>
+                <a href="{% url 'main:book_detail' pk=book.id %}">
+                    <div class="book-item" item-id="{{ book.id }}">
+                        <div class="img-container">
+                            <img src="{{ book.image_url }}"/>
+                        </div>
+                        <div class="star-rating-container">
+                            <div class="item-title"><span class='text'>{{ book.title }}</span></div>
+                            <div class="item-author">{{ book.author }}</div>
+                            <input item-id="{{ book.id }}" type="number" class="rating" min=0 max=5 step=0.5
+                                   data-size="sm">
                         </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
         </div>
     {% endif %}
 {% endblock contents %}
 
-{% block js_bottom %}
-  <script src="{% static 'js/main/book_recommended.js' %}"></script>
-{% endblock js_bottom %}
+{% block jsfiles %}
+    {{ block.super }}
+    <script src="{% static 'components/bower_components/bootstrap-star-rating/js/star-rating.min.js' %}" ></script>
+    <script src="{% static 'js/main/book_recommended.js' %}"></script>
+{% endblock jsfiles %}

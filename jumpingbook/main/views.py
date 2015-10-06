@@ -75,7 +75,7 @@ class BookRecommendedView(LoginRequiredMixin, View):
             recommend_books = sorted( recommend_books.items(), key=operator.itemgetter(1), reverse=True)
 
 
-            for recommend_books in recommend_books[:12]:
+            for recommend_books in recommend_books[:15]:
                 books.append( Book.objects.get(id=recommend_books[0]) )
 
         return render(request,
