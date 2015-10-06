@@ -26,23 +26,29 @@
                     </div>
                 </div>
             </div>
-            <div class="book-item-container">
-                {% for book in books %}
-                    <a href="{% url 'main:book_detail' pk=book.id %}">
-                        <div class="book-item" item-id="{{ book.id }}">
-                            <div class="img-container">
-                                <img src="{{ book.image_url }}"/>
+            {% if books|length == 0 %}
+                <div class="alert alert-info" role="alert">
+                    <h5>검색 결과가 없습니다ㅜㅜ <span class="label label-primary">^^;</span></h5>
+                </div>
+            {% else %}
+                <div class="book-item-container">
+                    {% for book in books %}
+                        <a href="{% url 'main:book_detail' pk=book.id %}">
+                            <div class="book-item" item-id="{{ book.id }}">
+                                <div class="img-container">
+                                    <img src="{{ book.image_url }}"/>
+                                </div>
+                                <div class="star-rating-container">
+                                    <div class="item-title"><span class='text'>{{ book.title }}</span></div>
+                                    <div class="item-author">{{ book.author }}</div>
+                                    <input item-id="{{ book.id }}" type="number" class="rating" min=0 max=5 step=0.5
+                                           data-size="sm">
+                                </div>
                             </div>
-                            <div class="star-rating-container">
-                                <div class="item-title"><span class='text'>{{ book.title }}</span></div>
-                                <div class="item-author">{{ book.author }}</div>
-                                <input item-id="{{ book.id }}" type="number" class="rating" min=0 max=5 step=0.5
-                                       data-size="sm">
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock contents %}
