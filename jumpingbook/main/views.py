@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Sum, Prefetch
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.db.models import Q
 
 # Create your views here.
 from django.views.generic import TemplateView, View, DetailView
@@ -92,7 +93,8 @@ class BookSearchView(TemplateView):
     def get_context_data(self, **kwargs):
         query = self.request.GET.get('query','')
         context = super(BookSearchView, self).get_context_data(**kwargs)
-        context['books'] = Book.objects.filter(title__contains=query).all()[:12]
+        context['books'] = Book.objects.filter(Q(title__icontains=query) |
+                               Q(author__icontains=query)).all()[:15]
         return context
 
 class BookDetailView(DetailView):
