@@ -807,7 +807,7 @@ def _start_scrapping():
                     readerContentGradeAverage = item['readerContentGradeAverage']
                     memberReviewCount = item['memberReviewCount']
                     # published_date = item['publishingDay']
-                    published_date = "20150622"
+                    published_date = "20151006"
 
                     query_string = "insert into core_book(title, barcode, image_url, author, publisher, published_date, category_id) select '%s', '%s', '%s', '%s', '%s', '%s', '%s' where not exists ( select id from core_book where title = '%s' and author = '%s' );" \
                                % (title, barcode, image_url, author, publisher, published_date, subcategory_id, title, author)

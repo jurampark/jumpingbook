@@ -34,12 +34,12 @@ function offRatingLibrary( selector ) {
 function onRatingLibrary( selector ) {
     $(selector).rating();
     $(selector).on('change', function () {
-        var current_item = $(this).parent().parent();
+        var current_item = $(this).parent().parent().parent().parent();
         $.ajax({
             type: 'POST',
             url: urlForBookRating,
             data: {
-                "item-id": $(this).parent().parent().attr('item-id'),
+                "item-id": current_item.attr('item-id'),
                 "rating": $(this).val()
             },
             success: function () {
@@ -90,7 +90,7 @@ function getItemList(page) {
                                 <div class=\"star-rating-container\"> \
                                   <div class=\"item-title\">" + item['title'] + "</div> \
                                   <div class=\"item-author\">" + item['author'] + "</div> \
-                                  <input type=\"hidden\" class=\"rating\" data-fractions=\"2\"/> \
+                                  <input item-id=\"" + item['id'] + "\" type=\"number\" class=\"rating\" min=0 max=5 step=0.5 data-size=\"sm\" ></input> \
                                 </div> \
                                 </div>";
                 $('.book-item-container').append(elem);

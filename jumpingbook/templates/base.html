@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+{% url 'main:book_search' as url_book_search %}
+{% url 'main:book_rating' as url_main_book_rating %}
+{% url 'main:add_friend' as url_main_add_friend %}
+{% url 'main:mypage' as url_main_mypage %}
+{% url 'main:book_recommended' as url_main_book_recommended %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap/dist/css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'components/bower_components/font-awesome/css/font-awesome.min.css' %}">
+
+    {% block cssfiles %}
+    {% endblock cssfiles %}
+
+    <script>
+        var csrftoken = "{{ csrf_token }}";
+    </script>
+
+</head>
+<body>
+{% block navbar %}
+{% endblock navbar %}
+
+<div class="bg-container">
+    {% block bgs %} {% endblock %}
+</div>
+
+<div class="container">
+    {% block contents %}{% endblock contents %}
+</div>
+
+<script src="{% static 'components/bower_components/jquery/dist/jquery.min.js' %}" ></script>
+<script src="{% static 'components/bower_components/bootstrap/dist/js/bootstrap.min.js' %}" ></script>
+{% block jsfiles %}
+{% endblock jsfiles %}
+
+</body>
+</html>

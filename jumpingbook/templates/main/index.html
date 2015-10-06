@@ -2,9 +2,8 @@
 {% load staticfiles %}
 
 {% block cssfiles %}
-
+    {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/main/index.css' %}">
-
 {% endblock cssfiles %}
 
 {% block bgs %}
