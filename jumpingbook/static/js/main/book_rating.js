@@ -90,7 +90,7 @@ function getItemList(page) {
                                 <div class=\"star-rating-container\"> \
                                   <div class=\"item-title\"><span class='text'>" + item['title'] + "</span></div> \
                                   <div class=\"item-author\">" + item['author'] + "</div> \
-                                  <input item-id=\"" + item['id'] + "\" type=\"number\" class=\"rating\" min=0 max=5 step=0.5 data-size=\"sm\" ></input> \
+                                  <input item-id=\"" + item['id'] + "\" type=\"number\" class=\"rating\" min=0 max=5 step=0.5 data-size=\"sm\" > \
                                 </div> \
                                 </div></a>";
                 $('.book-item-container').append(elem);

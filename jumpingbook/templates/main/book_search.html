@@ -1,14 +1,17 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 
-{% block head %}
-    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
+{% block cssfiles %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap-star-rating/css/star-rating.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common/book_list.css' %}">
+{% endblock cssfiles %}
+
+{% block top_jsfiles %}
     <script>
-      var urlForBookRating = "{% url 'recommend:book_rating' %}";
+        var urlForBookRating = "{% url 'recommend:book_rating' %}";
     </script>
-{% endblock head %}
+{% endblock top_jsfiles %}
 
 {% block contents %}
     <div class="row">
@@ -25,16 +28,19 @@
             </div>
             <div class="book-item-container">
                 {% for book in books %}
-                    <div class="book-item" item-id="{{ book.id }}" >
-                        <div class="img-container">
-                            <img src="{{ book.image_url }}" />
+                    <a href="get_book_detail_url({{ book.id }})">
+                        <div class="book-item" item-id="{{ book.id }}">
+                            <div class="img-container">
+                                <img src="{{ book.image_url }}"/>
+                            </div>
+                            <div class="star-rating-container">
+                                <div class="item-title"><span class='text'>{{ book.title }}</span></div>
+                                <div class="item-author">{{ book.author }}</div>
+                                <input item-id="{{ book.id }}" type="number" class="rating" min=0 max=5 step=0.5
+                                       data-size="sm">
+                            </div>
                         </div>
-                        <div class="star-rating-container">
-                            <div class="item-title">{{ book.title }}</div>
-                            <div class="item-author">{{ book.author }}</div>
-                            <input type="hidden" class="rating" data-fractions="2"/>
-                        </div>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         </div>
@@ -42,5 +48,7 @@
 {% endblock contents %}
 
 {% block js_bottom %}
-  <script src="{% static 'js/main/search.js' %}"></script>
+    {{ block.super }}
+    <script src="{% static 'js/main/search.js' %}"></script>
+    <script src="{% static 'components/bower_components/bootstrap-star-rating/js/star-rating.min.js' %}" ></script>
 {% endblock js_bottom %}
