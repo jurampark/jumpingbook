@@ -7,8 +7,10 @@
     width: 100%;
     height: auto;
 }
-
 .evaluation
 {
     margin-top: 60px;
+}
+#comments {
+    width: 80%;
 }

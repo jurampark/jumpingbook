@@ -12,6 +12,10 @@
 
         var urlForBookRating = "{% url 'recommend:book_rating' %}";
 
+    function get_book_comment_url( book_id ) {
+        return "{% url 'main:book_comment' pk=1987654321 %}".replace("1987654321", book_id );
+    }
+
     </script>
 {% endblock top_jsfiles %}
 
@@ -44,11 +48,17 @@
         </div>
         <div class="col-md-4">
             <div class="evaluation">
-                <h5>{{ avg_star }} <span class="label label-primary">평점</span></h5>
+                <h5>{{ avg_star|floatformat:2 }} <span class="label label-primary">평점</span></h5>
                 <h5>{{ evaluation_count }} <span class="label label-primary">누적평가수</span></h5>
-                <h3>{{ predict_star }} <span class="label label-success">예상 별점</span></h3>
+                <h3>{{ predict_star|floatformat:2 }} <span class="label label-success">예상 별점</span></h3>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <form id="form-comment" class="form-inline" method="post" action="get_book_comment_url({{ object.id }});">
+            <input type="text" id='comment' class="form-control" placeholder="의견을 남겨주세요" >
+            <button type="submit" class="btn btn-success">남기기</button>
+        </form>
     </div>
 
 {% endblock contents %}

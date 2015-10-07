@@ -3,7 +3,7 @@ from braces.views import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.db.models import Sum, Prefetch
+from django.db.models import Sum, Prefetch, Avg
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Q
@@ -104,6 +104,7 @@ class BookDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(BookDetailView, self).get_context_data(**kwargs)
         context['evaluation_count'] = UserBookRating.objects.filter(book__id=self.kwargs['pk']).count()
+        context['avg_star'] = UserBookRating.objects.filter(book__id=self.kwargs['pk']).aggregate(Avg('score'))['score__avg']
         rating = UserBookRating.objects.filter(user=self.request.user, book__id=self.kwargs['pk']).first()
 
         if rating is None:
@@ -111,7 +112,6 @@ class BookDetailView(DetailView):
         else:
             context['star'] = rating.score
 
-        context['avg_star'] = 3.5
         context['predict_star'] = 4.4
         return context
 

@@ -1,4 +1,5 @@
 import datetime
+from django.contrib.auth.models import User
 from django.db import models
 
 class TimeStampedModel(models.Model):
@@ -41,3 +42,7 @@ class Book(models.Model):
     # def total_score(self):
     #     sum = self.userbookrating_set.aggregate(Sum('score'))
     #     return sum
+
+class BookComments(TimeStampedModel):
+    user = models.ForeignKey(User, null=False)
+    comment = models.TextField(null=False, blank=True)
