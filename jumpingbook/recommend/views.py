@@ -39,11 +39,14 @@ class BookListView(CsrfExemptMixin, LoginRequiredMixin, View):
 class RatingBookView(CsrfExemptMixin, View):
     def post(self, request, *args, **kwargs):
         item_id = request.POST.get('item-id')
-        rating = int(float(request.POST.get('rating'))*2)
+        rating = int(request.POST.get('rating'))
 
         try:
             user_book_rating, created = UserBookRating.objects.get_or_create(user=request.user, book=Book.objects.get(id=item_id),
                                                                              defaults={'score':rating})
+            if not(created):
+                user_book_rating.score = rating
+                user_book_rating.save()
         except Exception as e:
             return HttpResponseBadRequest()
 

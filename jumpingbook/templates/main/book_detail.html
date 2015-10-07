@@ -3,15 +3,32 @@
 
 {% block cssfiles %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'components/bower_components/bootstrap-star-rating/css/star-rating.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/main/book_detail.css' %}">
 {% endblock cssfiles %}
 
 {% block top_jsfiles %}
+    <script>
+
+        var urlForBookRating = "{% url 'recommend:book_rating' %}";
+
+    </script>
 {% endblock top_jsfiles %}
 
 
 
 {% block contents %}
+    <div id="center" style="position:fixed;top:50%;left:50%;z-index:5">
+        <div id="loadingDiv" style="display: none;">
+            <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
+        </div>
+        <div id="rating-success-alert-container" style="display: none;">
+            <div class="alert alert-success" role="alert">
+                <strong> - 당신의 소중한 평가가 저장되었습니다 - </strong>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-3">
             <div class="thumbnail">
@@ -23,6 +40,7 @@
             <h6><span class="label label-default">지은이</span></h6> <h5>{{ object.author }} <span class="label label-default"></span></h5>
             <h6><span class="label label-default">출판사</span></h6><h4>{{ object.publisher }} <span class="label label-default"></span></h4>
             <h6><span class="label label-default">출판일</span></h6><h4>{{ object.published_date }} <span class="label label-default"></span></h4>
+            <input type="number" item-id="{{ object.id }}" class="rating input-rating" min=0 max=10 step=1 value={{ star }} data-size="md">
         </div>
         <div class="col-md-4">
             <div class="evaluation">
@@ -37,5 +55,6 @@
 
 {% block jsfiles %}
     {{ block.super }}
+    <script src="{% static 'components/bower_components/bootstrap-star-rating/js/star-rating.min.js' %}" ></script>
     <script src="{% static 'js/main/book_detail.js' %}"></script>
 {% endblock jsfiles %}
