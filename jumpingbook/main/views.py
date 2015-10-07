@@ -11,7 +11,7 @@ from django.db.models import Q
 # Create your views here.
 from django.views.generic import TemplateView, View, DetailView
 import operator
-from core.models import Book, Category, SubCategory
+from core.models import Book, Category, SubCategory, BookComments
 from users.models import UserBookRating, UserFriend
 
 
@@ -114,6 +114,11 @@ class BookDetailView(DetailView):
 
         context['predict_star'] = 4.4
         return context
+
+class BookCommentView(View):
+
+    def post(self, request, *args, **kwargs):
+        BookComments.objects.create(user=request.user, book__id=kwargs['pk'], comment = kwargs['comment'])
 
 # class AddFriendView(TemplateView):
 #

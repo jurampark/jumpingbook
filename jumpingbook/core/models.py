@@ -45,4 +45,5 @@ class Book(models.Model):
 
 class BookComments(TimeStampedModel):
     user = models.ForeignKey(User, null=False)
+    book = models.ForeignKey('core.Book')
     comment = models.TextField(null=False, blank=True)
