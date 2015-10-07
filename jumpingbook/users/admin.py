@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, SubCategory, Book
+from users.models import UserBookRating
 
 # class BookAdmin(admin.ModelAdmin):
 #     list_display = ('title', 'author')
@@ -9,6 +9,6 @@ from .models import Category, SubCategory, Book
 # admin.site.register(Category)
 # admin.site.register(SubCategory)
 # admin.site.register(Book, BookAdmin)
-from users.models import UserBookRating
+
 
 admin.site.register(UserBookRating)
