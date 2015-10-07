@@ -55,8 +55,9 @@
         </div>
     </div>
     <div class="row">
-        <form id="form-comment" class="form-inline" method="post" action="get_book_comment_url({{ object.id }});">
-            <input type="text" id='comment' class="form-control" placeholder="의견을 남겨주세요" >
+        <form id="form-comment" class="form-inline" method="post" item-id="{{ object.id }}">
+            {% csrf_token %}
+            <input type="text" id='comment' name='comment' class="form-control" placeholder="의견을 남겨주세요" >
             <button type="submit" class="btn btn-success">남기기</button>
         </form>
     </div>

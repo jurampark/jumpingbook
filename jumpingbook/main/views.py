@@ -118,7 +118,11 @@ class BookDetailView(DetailView):
 class BookCommentView(View):
 
     def post(self, request, *args, **kwargs):
-        BookComments.objects.create(user=request.user, book__id=kwargs['pk'], comment = kwargs['comment'])
+        BookComments.objects.create(user=request.user, book_id=kwargs['pk'], comment = request.POST.get('comment'))
+
+
+        return HttpResponse(json.dumps(BookComments.objects.filter(book__id=kwargs['pk']).values(), cls=DjangoJSONEncoder), content_type="application/json")
+        # return HttpResponse(json.dumps({}, cls=DjangoJSONEncoder), content_type="application/json")
 
 # class AddFriendView(TemplateView):
 #

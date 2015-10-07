@@ -26,4 +26,19 @@ $(function () {
             }
         });
     });
+
+
+    // comment form
+    $('#form-comment').submit(function (e) {
+        var form = $(this);
+        $.ajax({
+            url: get_book_comment_url(form.attr('item-id')),
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function (response) {
+                alert(response);
+            }
+        });
+        return false;
+    });
 });
