@@ -171,6 +171,7 @@ USE_TZ = True
 SITE_ID = 1
 
 # LOGIN_URL = '/login'
+ACCOUNT_EMAIL_VERIFICATION = "None"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
 # Oauth
