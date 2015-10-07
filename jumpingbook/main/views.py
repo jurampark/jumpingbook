@@ -103,6 +103,7 @@ class BookDetailView(DetailView):
     model = Book
     def get_context_data(self, **kwargs):
         context = super(BookDetailView, self).get_context_data(**kwargs)
+        context['evaluation_count'] = UserBookRating.objects.filter(book__id=self.kwargs['pk']).count()
         rating = UserBookRating.objects.filter(user=self.request.user, book__id=self.kwargs['pk']).first()
 
         if rating is None:
@@ -111,7 +112,6 @@ class BookDetailView(DetailView):
             context['star'] = rating.score
 
         context['avg_star'] = 3.5
-        context['evaluation_count'] = 144
         context['predict_star'] = 4.4
         return context
 
