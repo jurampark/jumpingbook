@@ -44,8 +44,6 @@ class RatingBookView(CsrfExemptMixin, View):
         try:
             user_book_rating, created = UserBookRating.objects.get_or_create(user=request.user, book=Book.objects.get(id=item_id),
                                                                              defaults={'score':rating})
-            print user_book_rating,"/",created
-
             if not(created):
                 user_book_rating.score = rating
                 user_book_rating.save()
