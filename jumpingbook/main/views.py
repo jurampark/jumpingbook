@@ -68,7 +68,10 @@ class BookRecommendedView(LoginRequiredMixin, View):
                     if neighbors.has_key(other_rating.user_id):
                         neighbors[other_rating.user_id] = neighbors[other_rating.user_id]+1
                     else:
-                        neighbors[other_rating.user_id] = 1
+                        if UserFriend.objects.filter(user=request.user, friend__id=other_rating.user_id).exists():
+                            neighbors[other_rating.user_id] = 10
+                        else:
+                            neighbors[other_rating.user_id] = 1
 
             neighbors = sorted( neighbors.items(), key=operator.itemgetter(1), reverse=True)
             recommend_books = {}
