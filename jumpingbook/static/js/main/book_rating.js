@@ -35,11 +35,12 @@ function onRatingLibrary(selector) {
     $(selector).rating();
     $(selector).on('change', function () {
         var current_item = $(this).parent().parent().parent().parent();
+
         $.ajax({
             type: 'POST',
             url: urlForBookRating,
             data: {
-                "item-id": current_item.attr('item-id'),
+                "item-id": $(this).attr('item-id'),
                 "rating": $(this).val()
             },
             success: function () {

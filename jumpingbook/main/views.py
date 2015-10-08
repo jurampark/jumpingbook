@@ -85,14 +85,14 @@ class BookRecommendedView(LoginRequiredMixin, View):
 
             recommend_books = sorted( recommend_books.items(), key=operator.itemgetter(1), reverse=True)
 
-
-            for recommend_books in recommend_books[:15]:
-                books.append( Book.objects.get(id=recommend_books[0]) )
+            for recommend_book in recommend_books:
+                if not(UserBookRating.objects.filter(user=request.user, book__id=recommend_book[0]).exists()):
+                    books.append( Book.objects.get(id=recommend_book[0]) )
 
         return render(request,
                       self.template_name,
                       {'rated_books_count':rated_books_count,
-                       'books': books
+                       'books': books[:15]
                        } )
 
     def post(self, request, *args, **kwargs):

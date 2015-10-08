@@ -30,6 +30,7 @@ $(document).ready(function () {
     $('input.rating').rating();
     $('input.rating').on('change', function () {
         var current_item = $(this).parent().parent().parent().parent();
+
         $.ajax({
             type: 'POST',
             url: urlForBookRating,
