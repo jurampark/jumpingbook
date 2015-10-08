@@ -32,7 +32,10 @@ class MyPageView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MyPageView, self).get_context_data(**kwargs)
-        context['rating_book_list'] = list(UserBookRating.objects.filter(user=self.request.user).values())
+        context['books'] = UserBookRating.objects.filter(user=self.request.user).select_related('book').values('book__id','book__title','book__author', 'book__publisher','book__published_date','score')
+        context['friends'] = UserFriend.objects.filter(user=self.request.user).select_related('friend').values('friend__username', 'friend__first_name', 'friend__last_name', 'friend__email')
+
+        print context['books']
         return context
 
 class BookRatingView(LoginRequiredMixin, TemplateView):

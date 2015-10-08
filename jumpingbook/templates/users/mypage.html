@@ -3,6 +3,7 @@
 
 {% block cssfiles %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/common/book_list.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/users/mypage.css' %}">
 {% endblock cssfiles %}
 
@@ -26,13 +27,13 @@
     <div class="row">
         <div class="col-md-2">
             <div class="list-group category-list">
-                <a href="#" class="list-group-item list-menu active">
+                <a href="#" class="list-group-item list-menu active" id="personal-info" >
                     <span class="text" hre="#">개인정보<span class="highlight"></span></span>
                 </a>
-                <a href="#" class="list-group-item list-menu">
+                <a href="#" class="list-group-item list-menu" id="rating-list">
                     <span class="text" hre="#">평가내역</span></span>
                 </a>
-                <a href="#" class="list-group-item list-menu">
+                <a href="#" class="list-group-item list-menu" id="friends">
                     <span class="text" hre="#">친구</span></span>
                 </a>
             </div>
@@ -72,23 +73,52 @@
                     </div>
                 </div>
             </div>
+            <div class="book-item-container">
 
-            <div class="rating-book-container">
-                {% for book in rating_book_list %}
-                    <a href="{% url 'main:book_detail' pk=book.id %}">
-                        <div class="book-item" item-id="{{ book.id }}">
-                            <div class="img-container">
-                                <img src="{{ book.image_url }}"/>
-                            </div>
-                            <div class="star-rating-container">
-                                <div class="item-title"><span class='text'>{{ book.title }}</span></div>
-                                <div class="item-author">{{ book.author }}</div>
-                                <input item-id="{{ book.id }}" type="number" class="rating" min=0 max=10 step=1
-                                       data-size="sm">
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
+                <table class="table table-striped">
+                    <thead>
+                        <th>#</th>
+                        <th>제목</th>
+                        <th>저자</th>
+                        <th>평점</th>
+                        <th>출판사</th>
+                        <th>출판일</th>
+                    </thead>
+                    <tbody>
+                        {% for book in books %}
+                            <tr>
+                                <td>{{ book.book__id }}</td>
+                                <td>{{ book.book__title }}</td>
+                                <td>{{ book.book__author }}</td>
+                                <td>{{ book.score }}</td>
+                                <td>{{ book.book__publisher }}</td>
+                                <td>{{ book.book__published_date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="friend-container">
+                <table class="table table-striped">
+                    <thead>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Email</th>
+                    </thead>
+                    <tbody>
+                    {% for friend in friends %}
+                        <tr>
+                            <td></td>
+                            <td>{{ friend.friend__username }}</td>
+                            <td>{{ friend.friend__last_name }}</td>
+                            <td>{{ friend.friend__first_name }}</td>
+                            <td>{{ friend.friend__email }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -96,4 +126,5 @@
 
 {% block jsfiles %}
     {{ block.super }}
+    <script src="{% static 'js/users/mypage.js' %}"></script>
 {% endblock jsfiles %}
