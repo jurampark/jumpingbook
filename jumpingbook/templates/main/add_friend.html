@@ -1,31 +1,54 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 
-{% block head %}
-    <script src="{% static 'js/common/bootstrap-rating.min.js' %}"></script>
+{% block cssfiles %}
+    {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/common/bootstrap-rating.css' %}">
     <link rel="stylesheet" href="{% static 'css/main/book_rating.css' %}">
+    {% endblock cssfiles %}
+
+{% block top_jsfiles %}
     <script>
       var urlForBookRating = "{% url 'recommend:book_rating' %}";
       var urlForAddFriend = "{% url 'main:add_friend' %}";
     </script>
-{% endblock head %}
+{% endblock top_jsfiles %}
 
 {% block contents %}
     <div class="row">
-        <div class="list-group">
-            {% for user in users %}
-                <button type="button" class="list-group-item friend-list" user-id="{{ user.id }}">
-                    {% if user.isFriend %}
-                        <span class="badge">friend</span>
-                    {% endif %}
-                    {{ user.username }}
-                </button>
-            {% endfor %}
+        <div class="friend-container">
+            <table class="table table-striped">
+                <thead>
+                <th>#</th>
+                <th>Friend</th>
+                <th>Username</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Email</th>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td></td>
+                        <td>{% if user.isFriend %}
+                                <span class="badge">friend</span>
+                            {% else %}
+                                <button user-id="{{ user.id }}" type="button" class="btn-friend btn btn-default">신청</button>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock contents %}
 
-{% block js_bottom %}
+{% block jsfiles %}
+    {{ block.super }}
   <script src="{% static 'js/main/add_friend.js' %}"></script>
-{% endblock js_bottom %}
+{% endblock jsfiles %}

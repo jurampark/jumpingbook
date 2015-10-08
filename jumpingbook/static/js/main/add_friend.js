@@ -17,9 +17,11 @@ $(document).ready(function () {
     //loadingDiv = $("#loadingDiv");
     //loadingDiv.hide();
 
-    $('.friend-list').click(function (e) {
+    $('.btn-friend').click(function (e) {
+
         e.preventDefault();
 
+        var td = $(this).parent();
         $.ajax({
             type: 'POST',
             url: urlForAddFriend,
@@ -27,10 +29,10 @@ $(document).ready(function () {
                 'user-id': $(this).attr('user-id')
             },
             success: function(data){
-                alert('success');
+                td.empty();
+                td.append("<span class=\"badge\">friend</span>");
             },
             error: function(xhr, type, exception) {
-                alert("ajax error response type "+type);
             }
         });
     });

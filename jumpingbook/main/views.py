@@ -164,16 +164,14 @@ class AddFriendView(LoginRequiredMixin, View):
     template_name = "main/add_friend.html"
 
     def get(self, request, *args, **kwargs):
-        users = User.objects.exclude(username=self.request.user.username).values('id','username')
+        users = User.objects.exclude(username=self.request.user.username).values('id','username', 'last_name', 'first_name', 'email')
 
         for user in users:
             user['isFriend'] = UserFriend.objects.filter(user=self.request.user, friend_id=user['id']).exists()
 
-        print users
-
         return render(request, self.template_name, {
             'users': users
-        } )
+        })
 
     def post(self, request, *args, **kwargs):
         UserFriend.objects.create( user = request.user, friend_id = request.POST.get('user-id'))
