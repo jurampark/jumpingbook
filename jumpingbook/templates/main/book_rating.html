@@ -38,11 +38,11 @@
     <div class="row">
         <div class="col-md-2">
             <div class="list-group category-list">
-                <a href="#" class="list-group-item category-list-item active" category-id="">
+                <a href="#" class="list-group-item list-menu active" category-id="">
                     <span class="text" hre="#">신간<span class="highlight"></span></span>
                 </a>
                 {% for category in categories %}
-                    <a href="#" class="list-group-item category-list-item" category-id="{{ category.id }}">
+                    <a href="#" class="list-group-item list-menu" category-id="{{ category.id }}">
                         <span class="text" hre="#">{{ category.name }}</span>
                     </a>
                 {% endfor %}

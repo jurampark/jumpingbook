@@ -11,10 +11,11 @@
     <script>
 
         var urlForBookRating = "{% url 'recommend:book_rating' %}";
+        var urlForBookComment = "{% url 'main:book_comment' pk=object.id %}";
 
-    function get_book_comment_url( book_id ) {
-        return "{% url 'main:book_comment' pk=1987654321 %}".replace("1987654321", book_id );
-    }
+{#    function get_book_comment_url( book_id ) {#}
+{#        return "{% url 'main:book_comment' pk=1987654321 %}".replace("1987654321", book_id );#}
+{#    }#}
 
     </script>
 {% endblock top_jsfiles %}
@@ -60,6 +61,8 @@
             <input type="text" id='comment' name='comment' class="form-control" placeholder="의견을 남겨주세요" >
             <button type="submit" class="btn btn-success">남기기</button>
         </form>
+        <ul id="list-comment" class="list-group">
+        </ul>
     </div>
 
 {% endblock contents %}

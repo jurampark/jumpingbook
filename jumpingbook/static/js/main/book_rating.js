@@ -28,10 +28,10 @@ function refreshWaypointsLibrary() {
     });
 }
 
-function offRatingLibrary( selector ) {
+function offRatingLibrary(selector) {
     $(selector).off();
 }
-function onRatingLibrary( selector ) {
+function onRatingLibrary(selector) {
     $(selector).rating();
     $(selector).on('change', function () {
         var current_item = $(this).parent().parent().parent().parent();
@@ -75,7 +75,7 @@ function getItemList(page) {
 
             offRatingLibrary('input.rating');
 
-            if ( page == 1 ) {
+            if (page == 1) {
                 $('.book-item-container').empty();
             }
 
@@ -83,16 +83,16 @@ function getItemList(page) {
 
             for (var index in data['items']) {
                 var item = data['items'][index];
-                var elem = "    <a href=\"" + get_book_detail_url(item['id']) +  "\"> <div class=\"book-item\" item-id=\"" + item['id'] + "\"> \
+                if ( item['image_url'].length == 0 ) item['image_url'] = urlNoThumbnail;
+                var elem = "    <a href=\"" + get_book_detail_url(item['id']) + "\"> <div class=\"book-item\" item-id=\"" + item['id'] + "\"> \
                                 <div class=\"img-container\"> \
                                 <img src=\"" + item['image_url'] + "\" /> \
                                 </div> \
                                 <div class=\"star-rating-container\"> \
                                   <div class=\"item-title\"><span class='text'>" + item['title'] + "</span></div> \
                                   <div class=\"item-author\">" + item['author'] + "</div> \
-                                  <input item-id=\"" + item['id'] + "\" type=\"number\" class=\"rating\" min=0 max=5 step=0.5 data-size=\"sm\" > \
-                                </div> \
-                                </div></a>";
+                                  <input item-id=\"" + item['id'] + "\" type=\"number\" class=\"rating\" min=0 max=10 step=1 data-size=\"sm\" > \
+                                </a>";
                 $('.book-item-container').append(elem);
             }
 
@@ -134,15 +134,15 @@ $(document).ready(function () {
 
     loadingDiv.hide();
 
-    $('.category-list-item').click(function (e) {
+    $('.list-menu').click(function (e) {
         e.preventDefault();
-        $('html, body').animate({ scrollTop: 0 }, 'fast');
+        $('html, body').animate({scrollTop: 0}, 'fast');
         categoryId = $(this).attr('category-id');
         nextPage = -1;
-        $('.category-list-item.active .highlight').remove();
-        $('.category-list-item.active').removeClass('active');
+        $('.list-menu.active .highlight').remove();
+        $('.list-menu.active').removeClass('active');
         $(this).addClass('active');
-        $('.category-list-item.active .text').append('<span class="highlight"></span>');
+        $('.list-menu.active .text').append('<span class="highlight"></span>');
 
         getItemList(1);
     });

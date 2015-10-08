@@ -1,6 +1,27 @@
 var alertDiv;
+var commentList;
 
+function RefreshCommentList(response) {
+    commentList.empty();
+
+    if ( typeof response === 'undefined' ) {
+        $.ajax({
+            url: urlForBookComment,
+            type: 'GET',
+            success: function (response) {
+                RefreshCommentList(response);
+            }
+        });
+    }
+
+    for ( var i in response ) {
+        commentList.append("<li class=\"list-group-item\"><span class=\"badge\">"+response[i]['user__username'] + "</span>" + response[i]['comment']+"</li>");
+    }
+}
 $(function () {
+
+    commentList = $('#list-comment');
+
     $(".input-rating").rating();
     $('.input-rating').rating('refresh', {showClear: false});
     alertDiv = $("#rating-success-alert-container");
@@ -27,18 +48,19 @@ $(function () {
         });
     });
 
-
     // comment form
     $('#form-comment').submit(function (e) {
         var form = $(this);
         $.ajax({
-            url: get_book_comment_url(form.attr('item-id')),
+            url: urlForBookComment,
             type: form.attr('method'),
             data: form.serialize(),
             success: function (response) {
-                alert(response);
+                RefreshCommentList(response);
             }
         });
         return false;
     });
+
+    RefreshCommentList();
 });

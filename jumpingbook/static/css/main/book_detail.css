@@ -14,3 +14,8 @@
 #comment {
     width: 80%;
 }
+.list-group-item {
+    width: 80%;
+    margin: 5px 5px 5px 0px;
+    border-radius: 20px !important;
+}

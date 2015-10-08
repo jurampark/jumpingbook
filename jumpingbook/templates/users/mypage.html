@@ -1,0 +1,99 @@
+{% extends "users/base.html" %}
+{% load staticfiles %}
+
+{% block cssfiles %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/users/mypage.css' %}">
+{% endblock cssfiles %}
+
+{% block top_jsfiles %}
+    <script>
+
+        var urlForBookList = "{% url 'recommend:book_list' %}";
+        var urlForBookRating = "{% url 'recommend:book_rating' %}";
+
+    function get_book_detail_url( book_id ) {
+        return "{% url 'main:book_detail' pk=1987654321 %}".replace("1987654321", book_id );
+    }
+
+    </script>
+{% endblock top_jsfiles %}
+
+
+
+{% block contents %}
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group category-list">
+                <a href="#" class="list-group-item list-menu active">
+                    <span class="text" hre="#">개인정보<span class="highlight"></span></span>
+                </a>
+                <a href="#" class="list-group-item list-menu">
+                    <span class="text" hre="#">평가내역</span></span>
+                </a>
+                <a href="#" class="list-group-item list-menu">
+                    <span class="text" hre="#">친구</span></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="personal-info-container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Username</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ user.username }}
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">First Name</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ user.first_name }}
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Last Name</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ user.last_name }}
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Email</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ user.email }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="rating-book-container">
+                {% for book in rating_book_list %}
+                    <a href="{% url 'main:book_detail' pk=book.id %}">
+                        <div class="book-item" item-id="{{ book.id }}">
+                            <div class="img-container">
+                                <img src="{{ book.image_url }}"/>
+                            </div>
+                            <div class="star-rating-container">
+                                <div class="item-title"><span class='text'>{{ book.title }}</span></div>
+                                <div class="item-author">{{ book.author }}</div>
+                                <input item-id="{{ book.id }}" type="number" class="rating" min=0 max=10 step=1
+                                       data-size="sm">
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock contents %}
+
+{% block jsfiles %}
+    {{ block.super }}
+{% endblock jsfiles %}

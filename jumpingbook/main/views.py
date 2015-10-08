@@ -28,7 +28,12 @@ class IndexView(LoginRequiredMixin, TemplateView):
         return context
 
 class MyPageView(LoginRequiredMixin, TemplateView):
-    template_name = "main/mypage.html"
+    template_name = "users/mypage.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['rating_book_list'] = list(UserBookRating.objects.filter(user=self.request.user).values())
+        return context
 
 class BookRatingView(LoginRequiredMixin, TemplateView):
     template_name = "main/book_rating.html"
@@ -115,13 +120,19 @@ class BookDetailView(DetailView):
         context['predict_star'] = 4.4
         return context
 
+
+def getCommentList( book_id ):
+    return HttpResponse(json.dumps(list(BookComments.objects.filter(book__id=book_id).values('user__username', 'comment')), cls=DjangoJSONEncoder), content_type="application/json")
+
 class BookCommentView(View):
+
+    def get(self, request, *args, **kwargs):
+        return getCommentList(kwargs['pk'])
 
     def post(self, request, *args, **kwargs):
         BookComments.objects.create(user=request.user, book_id=kwargs['pk'], comment = request.POST.get('comment'))
 
-
-        return HttpResponse(json.dumps(BookComments.objects.filter(book__id=kwargs['pk']).values(), cls=DjangoJSONEncoder), content_type="application/json")
+        return getCommentList(kwargs['pk'])
         # return HttpResponse(json.dumps({}, cls=DjangoJSONEncoder), content_type="application/json")
 
 # class AddFriendView(TemplateView):
