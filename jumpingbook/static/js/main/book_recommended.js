@@ -34,7 +34,7 @@ $(document).ready(function () {
             type: 'POST',
             url: urlForBookRating,
             data: {
-                "item-id": current_item.attr('item-id'),
+                "item-id": $(this).attr('item-id'),
                 "rating": $(this).val()
             },
             success: function () {
